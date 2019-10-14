@@ -1,0 +1,114 @@
+.btn,
+.btn-outlined,
+.btn-texted,
+.btn-big {
+  font-family: "Open Sans", sans-serif;
+  font-size: rem(14);
+  padding: rem(3) rem(20);
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-texted {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.btn,
+.btn-big {
+  background: $accent-color;
+  color: $default-color;
+
+  &:hover {
+    background: adjust-color(
+      $color: $accent-color,
+      $saturation: 5%,
+      $lightness: -10%
+    );
+  }
+  &:active {
+    background: adjust-color(
+      $color: $accent-color,
+      $saturation: -30%,
+      $lightness: -15%
+    );
+  }
+}
+
+.btn-outlined {
+  background: transparent;
+  border: 1px solid $accent-color;
+  color: $accent-color;
+
+  &:hover {
+    background: rgba($color: $accent-color, $alpha: 0.1);
+  }
+
+  &:active {
+    background: rgba($color: $accent-color, $alpha: 0.3);
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.label-file {
+  color: white;
+  height: rem(34);
+  width: rem(150);
+  cursor: pointer;
+  margin: 14px 0;
+  font-size: rem(13);
+  background: $accent-color;
+  border-radius: rem(5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-texted {
+  color: $accent-color;
+  padding: 0;
+
+  &:hover {
+    color: adjust-color(
+      $color: $accent-color,
+      $saturation: 5%,
+      $lightness: 10%
+    );
+  }
+  &:active {
+    color: adjust-color(
+      $color: $accent-color,
+      $saturation: -10%,
+      $lightness: -10%
+    );
+  }
+}
+
+.btn-big {
+  width: 250px;
+  height: 40px;
+  padding: rem(8) rem(25);
+}
+
+.btn-icon {
+  padding: 0;
+  width: 25px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+button {
+  outline: none;
+  background: none;
+  border: none;
+}
+
+button > i {
+  width: 25px;
+  margin-right: 5px;
+}

@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  min-height: 100vh;
+  max-width: 1280px;
+  width: 90%;
+  margin: 20px auto;
+}

@@ -1,0 +1,40 @@
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin respond($breakpoint) {
+  @if ($breakpoint == phone) {
+    @media screen and (max-width: 30em) {
+      @content;
+    } //600px
+  }
+  @if ($breakpoint == tablet) {
+    @media screen and (max-width: 52.5em) {
+      @content;
+    } //900px
+  }
+  @if ($breakpoint == laptop) {
+    @media screen and (max-width: 75em) {
+      @content;
+    } //1200px
+  }
+  @if ($breakpoint == big-desk) {
+    @media screen and (min-width: 112.5em) {
+      @content;
+    } //1800px
+  }
+}
+
+@mixin abs-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
+  content: $content;
+  display: $display;
+  position: $pos;
+}

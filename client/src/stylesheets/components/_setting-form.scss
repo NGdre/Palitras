@@ -1,0 +1,83 @@
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .settings {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+
+    section {
+      background: white;
+      border-radius: 5px;
+      flex-basis: 100%;
+      margin: 10px 20px;
+    }
+
+    // @include respond(tablet) {
+    //   flex-direction: column;
+    // }
+
+    @include respond(phone) {
+      flex-direction: column;
+    }
+  }
+
+  .personal-data,
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .more {
+    margin: 30px 0;
+    position: relative;
+    text-align: left;
+
+    @include respond(phone) {
+      text-align: center;
+    }
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  .btn-texted {
+    color: lighten(grey, 10%);
+  }
+  .btn-big {
+    margin: 20px 0;
+    width: 250px;
+    height: 40px;
+    padding: rem(6) rem(25);
+  }
+}
+
+.input-group {
+  label.label-file {
+    background: lighten($main-font-color, 10%);
+    z-index: 1;
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  .avatar {
+    background: lighten($primary-color, 20%);
+    text-align: center;
+    width: 70%;
+    border-radius: 5px;
+
+    @include respond(phone) {
+      width: 100%;
+    }
+
+    & > i {
+      color: lighten($main-font-color, 20%);
+      font-size: rem(220);
+    }
+  }
+}

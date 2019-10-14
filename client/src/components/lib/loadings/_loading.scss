@@ -1,0 +1,18 @@
+.spinner {
+  @include size(rem(23));
+  border: 2px solid rgba(146, 139, 139, 0.3);
+  border-top-color: $accent-color;
+  border-radius: 50%;
+  z-index: 1;
+  animation: 0.9s spin infinite;
+}
+
+.spinner-big {
+  @include size(rem(50));
+  border: 5px solid rgba(180, 179, 179, 0.3);
+  border-top-color: $accent-color;
+  border-radius: 50%;
+
+  z-index: 1;
+  animation: 0.9s spin infinite;
+}

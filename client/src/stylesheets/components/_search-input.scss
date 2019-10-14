@@ -1,0 +1,19 @@
+.search-box {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  margin: rem(20) 0;
+  flex-direction: column;
+  p {
+    margin: rem(15) 0;
+  }
+  .search {
+    height: rem(30);
+    margin-right: rem(10);
+    padding: rem(20);
+    font-size: rem(24);
+    background: grey;
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+}

@@ -1,0 +1,32 @@
+.modal-notification {
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  background: $additional-color;
+  padding: 10px 160px;
+  animation: expose 0.4s ease-out;
+  z-index: 5;
+  box-shadow: $bg-shadow;
+  p {
+    font-size: rem(18);
+    color: white;
+  }
+}
+
+.modal-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  background: $additional-color;
+  padding: 100px 160px;
+  animation: expose 0.4s ease-out;
+
+  box-shadow: $bg-shadow;
+
+  p {
+    font-size: rem(18);
+    color: white;
+  }
+}

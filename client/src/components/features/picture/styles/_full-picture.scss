@@ -1,0 +1,78 @@
+.full-picture {
+  section.wrapper {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+
+    @include respond(phone) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .user-section > .user-info {
+    display: flex;
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    .username {
+      margin-right: 10px;
+    }
+
+    @include respond(tablet) {
+      text-align: center;
+      flex-direction: row;
+      order: 1;
+    }
+  }
+
+  .picture-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .picture-actions {
+    display: flex;
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+    margin-right: 35px;
+
+    button {
+      flex: 1 0 auto;
+      margin-right: 10px;
+    }
+
+    @include respond(tablet) {
+      flex: 1 0 0;
+    }
+  }
+
+  .user-section,
+  .picture-section {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-basis: 49%;
+    margin-top: 10px;
+
+    background: $default-color;
+    padding: 10px 20px;
+    border-radius: 3px;
+  }
+
+  .user-info p {
+    display: inline;
+    margin-right: 5px;
+  }
+}
+
+.avatar i {
+  background: rgb(184, 183, 183);
+  border-radius: 50%;
+  padding: rem(6);
+  margin: 10px;
+  font-size: 40px;
+  cursor: pointer;
+}

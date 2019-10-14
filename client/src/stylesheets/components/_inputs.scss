@@ -1,0 +1,65 @@
+.box {
+  @include size(100%, 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-group {
+  margin: 30px 0;
+  width: 80%;
+  position: relative;
+}
+
+.form-label {
+  position: absolute;
+  top: rem(-34);
+  left: 0;
+  font-size: rem(18);
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.form-control {
+  display: block;
+  font-size: rem(18);
+  position: relative;
+  padding: rem(10);
+  border: 1px solid lighten($color: grey, $amount: 20%);
+  color: grey;
+  background: white;
+  outline: none;
+  border-radius: 3px;
+  caret-color: $accent-color;
+  width: 100%;
+
+  &:hover {
+    background: darken($color: white, $amount: 3%);
+  }
+
+  &:focus ~ .helper-text {
+    opacity: 1;
+  }
+
+  &:focus {
+    border: 1px solid grey;
+    background: darken($color: white, $amount: 6%);
+  }
+}
+
+.select {
+  text-transform: capitalize;
+}
+
+textarea {
+  resize: none;
+}
+
+.trailing-icon {
+  pointer-events: none;
+  position: absolute;
+  right: 10px;
+  top: 9px;
+}

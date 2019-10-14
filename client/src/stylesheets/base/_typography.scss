@@ -1,0 +1,78 @@
+p,
+a {
+  font-size: rem(16);
+}
+
+.link {
+  font-size: rem(14);
+  color: $default-color;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: darken($default-color, 20%);
+  }
+}
+
+.center-align {
+  text-align: center;
+}
+
+h1,
+h2,
+h3 {
+  font-size: rem(18);
+}
+
+strong {
+  font-size: rem(14);
+}
+
+.section-header {
+  font-size: rem(24);
+  margin: 20px 0;
+  font-family: "Kameron";
+  letter-spacing: 1px;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.section-breaker {
+  width: 80%;
+  background-color: grey;
+  height: 1px;
+  margin-bottom: 35px;
+}
+
+.helper-text,
+.err-text {
+  opacity: 0;
+  left: 10px;
+  transition: all 0.15s ease-out;
+}
+
+.err-text {
+  color: $danger-color;
+}
+
+.helper-text,
+.err-text,
+.character-counter {
+  font-size: rem(13);
+  position: absolute;
+}
+
+.character-counter {
+  right: 10px;
+}
+
+.date {
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
