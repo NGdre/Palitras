@@ -3,6 +3,3 @@ access.log
 .env
 readme.txt
 /public/uploads/
-
-/client/node_modules
-/client/public/uploads
