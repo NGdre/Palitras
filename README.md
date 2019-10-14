@@ -1,5 +1,5 @@
 # Palitras 
-<img src="https://github.com/100stepstosuccess/Palitras-client/blob/master/public/images/logo.svg" alt="logo" width="40"/>
+<img src="https://github.com/100stepstosuccess/Palitras/blob/master/client/public/images/logo.svg" alt="logo" width="40"/>
 simple picture's uploader with ability to add favorites, control images, and track user's info
 
 
