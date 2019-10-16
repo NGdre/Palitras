@@ -8,6 +8,10 @@ const createError = require("./utils/createError");
 const index = require("./routes/index");
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use("/", index);
+
 const IN_PROD = process.env.NODE_ENV === "production";
 if (IN_PROD) {
   const fs = require("fs");
@@ -24,10 +28,6 @@ if (IN_PROD) {
 } else {
   app.use(logger("dev"));
 }
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use("/", index);
 
 app.use("*", (req, res, next) => {
   const err = createError(404, "Page not found", true);

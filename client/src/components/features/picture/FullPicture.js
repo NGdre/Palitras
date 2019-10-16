@@ -4,11 +4,15 @@ import Spinner from "../../lib/loadings/Spinner";
 import UserInfo from "./UserInfo";
 import { useSelector } from "react-redux";
 import PictureInfo from "./PictureInfo";
-import { selectCurrentPicture } from "../../actions/pictureSelectors";
+import {
+  selectCurrentPicture,
+  selectIsLoading
+} from "../../actions/pictureSelectors";
 import useChangeTitle from "../../lib/hooks/useChangeTitle";
 
 function FullPicture({ fetchOnePicture }) {
   const picture = useSelector(selectCurrentPicture);
+  const IsPictureLoading = useSelector(selectIsLoading);
   const { imagePath } = picture;
 
   useEffect(() => {
@@ -17,8 +21,12 @@ function FullPicture({ fetchOnePicture }) {
 
   useChangeTitle({ addTitle: picture.name });
 
-  if (!picture.name) {
+  if (IsPictureLoading !== false) {
     return <Spinner />;
+  }
+
+  if (IsPictureLoading === false && !picture.name) {
+    return <p>picture was removed</p>;
   }
 
   const { author } = picture;

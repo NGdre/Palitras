@@ -26,7 +26,8 @@ const makeRequestToAPI = reducerName => async (
       dispatch(failActionCreator(res.response.data));
     }
   } catch (error) {
-    dispatch(failActionCreator(error));
+    console.log(error, "server error");
+    dispatch(failActionCreator({ message: "server error" }));
   }
 };
 

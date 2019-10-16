@@ -3,8 +3,6 @@ import {
   fetchImagesActionCreators,
   fetchPictureActionCreators,
   uploadPictureActionCreators,
-  addFavoriteActionCreators,
-  removeFavoriteActionCreators,
   fetchFavoritesActionCreators,
   removePictureActionCreators,
   updatePictureActionCreators
@@ -27,8 +25,6 @@ const { actionRequests, actionFails } = getActionsOfType(
     fetchImagesActionCreators,
     fetchPictureActionCreators,
     uploadPictureActionCreators,
-    addFavoriteActionCreators,
-    removeFavoriteActionCreators,
     fetchFavoritesActionCreators,
     removePictureActionCreators,
     updatePictureActionCreators
@@ -47,7 +43,9 @@ export const pictureReducer = handleActions(
 
     [combineActions(...actionFails)]: (state, action) => ({
       ...state,
-      message: action.payload.err,
+      message: {
+        text: action.payload.err.message
+      },
       isLoading: false
     }),
 

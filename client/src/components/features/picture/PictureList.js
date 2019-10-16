@@ -1,12 +1,19 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "../../actions/pictureSelectors";
 import PictureListItem from "./PictureListItem";
 import Spinner from "../../lib/loadings/Spinner";
 import PictureListMyItem from "./PictureListMyItem";
 
 function PictureList({ pictures, favorites }) {
-  if (!pictures.length) {
+  const IsPicturesLoading = useSelector(selectIsLoading);
+
+  if (IsPicturesLoading !== false) {
     return <Spinner />;
+  }
+
+  if (IsPicturesLoading === false && !pictures.length) {
+    return <p>there is no pictures added here</p>;
   }
 
   const isFavorite = picture => {
