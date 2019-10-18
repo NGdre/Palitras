@@ -9,6 +9,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
     "express": "^4.16.4",
     "http-errors": "^1.7.3",
     "joi": "^14.3.1",
@@ -36,6 +37,7 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
+  "repository": "https://github.com/100stepstosuccess/Palitras",
   "author": "Andrew Vasilev",
   "license": "ISC"
 }

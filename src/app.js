@@ -3,6 +3,7 @@ const path = require("path");
 
 const bodyParser = require("body-parser");
 const logger = require("morgan");
+const compression = require("compression");
 
 const index = require("./routes/index");
 const app = express();
@@ -21,6 +22,7 @@ if (IN_PROD) {
   );
   app.use(logger("combined", { stream: accessLogStream }));
 
+  app.use(compression());
   app.use(express.static(path.join(__dirname, "../client", "build")));
 
   app.get("/*", (req, res) => {
