@@ -38,3 +38,15 @@
   display: $display;
   position: $pos;
 }
+
+@mixin border($stroke, $color, $border-radius-size: 0) {
+  $radius: map-get($border-radiuses, $border-radius-size);
+
+  @if $stroke != 0 {
+    border: $stroke solid $color;
+  }
+
+  @if $radius != 0 {
+    border-radius: $radius;
+  }
+}

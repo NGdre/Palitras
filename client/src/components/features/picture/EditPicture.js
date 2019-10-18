@@ -5,14 +5,14 @@ import useRedirect from "../../lib/hooks/useRedirect";
 import { useDispatch } from "react-redux";
 import { removePicture } from "../../actions/picture";
 import EditPictureForm from "./EditPictureForm";
-import ModalNotification from "../../lib/messages/ModalNotification";
+import Dialog from "../../lib/messages/Dialog";
 
 const EditPicture = ({ picture }) => {
   const { redirectTo, renderRedirect } = useRedirect();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
-  const { imagePath } = picture;
+  const { imagePaths } = picture;
 
   function redirectToFullPicture() {
     redirectTo(`/pictures/${picture._id}`);
@@ -31,7 +31,7 @@ const EditPicture = ({ picture }) => {
       {renderRedirect()}
       <div className="edit-picture">
         <div className="picture" onClick={redirectToFullPicture}>
-          {imagePath && <ConditionalImage src={imagePath} />}
+          {imagePaths[0].path && <ConditionalImage src={imagePaths[0].path} />}
         </div>
         <section className="edit-actions">
           <EditPictureForm picture={picture} />
@@ -39,11 +39,16 @@ const EditPicture = ({ picture }) => {
             remove picture
           </Button>
           {showModal && (
-            <ModalNotification
+            <Dialog
+              buttonNames={{
+                confirm: "remove",
+                cancel: "cancel"
+              }}
               status={showModal}
               handleShow={status => setShowModal(status)}
               action={removePictureCall}
-              message="are you sure, that you want to delete picture?"
+              title="remove this picture?"
+              message="this will delete picture and you would not recover it"
             />
           )}
         </section>

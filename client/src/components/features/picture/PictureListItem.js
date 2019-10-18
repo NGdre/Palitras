@@ -29,7 +29,7 @@ const PictureListItem = React.memo(({ picture, isFavorite }) => {
       {renderRedirect()}
       <animated.li className="image-item" style={animationProps}>
         <img
-          src={picture.imagePath}
+          src={picture.imagePaths[1].path}
           className="img"
           alt={picture.name}
           onClick={redirectToFullPicture}

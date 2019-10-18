@@ -23,7 +23,7 @@ function SnackBar({ timeout = 4000 }) {
   return (
     showTimeout && (
       <div className="modal-notification">
-        <p>{message}</p>
+        <p className="message">{message}</p>
       </div>
     )
   );

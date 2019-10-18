@@ -3,7 +3,7 @@ body {
   line-height: $main-line-height;
   font-family: $main-font;
   font-size: $main-font-size; // 1rem = 10px 10px/16px = 62.5%
-  background: $bg-gradient;
+  background: color("bg");
   color: $main-font-color;
   user-select: none;
   height: 100%;
@@ -19,32 +19,13 @@ body {
   }
 }
 
-input {
-  outline: none;
-  border: none;
-}
-
-.bg-gradient {
-  background: $bg-gradient;
-  height: 100vh;
-}
-
-input:-webkit-autofill {
-  -webkit-text-fill-color: $default-color !important;
-}
-
 img {
   height: auto;
   max-width: 100%;
 }
 
-.hide {
-  display: none !important;
-}
-
 .err {
-  color: $danger-color;
-  font-size: rem(14);
+  color: color("err");
 }
 
 .disabled {

@@ -8,6 +8,7 @@ function TextInput({
   onChange,
   onBlur,
   name,
+  title,
   placeholder,
   errMessage
 }) {
@@ -23,7 +24,7 @@ function TextInput({
         onChange={onChange}
         onBlur={onBlur}
       />
-      <label className="form-label">name</label>
+      <label className="form-label">{title || name}</label>
       {errMessage && <ErrInput text={errMessage} />}
     </div>
   );

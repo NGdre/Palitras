@@ -4,17 +4,17 @@
 
 @import "layout/layout";
 
-@import "components/auth-form";
-@import "components/picture-form";
-@import "components/setting-form";
-@import "components/search-input";
-@import "components/ligth-box";
-@import "components/inputs";
-@import "components/nav";
+@import "../components/features/auth/styles/auth-form";
+
+@import "../components/features/nav/styles/nav";
 @import "../components/features/nav/styles/dropdown-nav";
+
+@import "../components/features/picture/styles/picture-form";
 @import "../components/features/picture/styles/image-list";
 @import "../components/features/picture/styles/full-picture";
 @import "../components/features/picture/styles/edit-picture";
+
+@import "../components/lib/inputs/inputs";
 @import "../components/lib/buttons/buttons";
 @import "../components/lib/loadings/loading";
 @import "../components/lib/messages/messages.scss";

@@ -1,13 +1,15 @@
 .btn,
 .btn-outlined,
 .btn-texted,
-.btn-big {
-  font-family: "Open Sans", sans-serif;
-  font-size: rem(14);
-  padding: rem(3) rem(20);
-  border-radius: 2px;
-  cursor: pointer;
+.btn-big,
+.label-file {
+  font-size: font-size("medium");
+  font-weight: 600;
   text-transform: uppercase;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: rem(3) rem(20);
+  border-radius: border-radius("small");
+  cursor: pointer;
 }
 
 .btn-texted {
@@ -22,25 +24,18 @@
   color: $default-color;
 
   &:hover {
-    background: adjust-color(
-      $color: $accent-color,
-      $saturation: 5%,
-      $lightness: -10%
-    );
+    background: color("secondary-hover");
   }
+
   &:active {
-    background: adjust-color(
-      $color: $accent-color,
-      $saturation: -30%,
-      $lightness: -15%
-    );
+    background: color("secondary-active");
   }
 }
 
 .btn-outlined {
   background: transparent;
-  border: 1px solid $accent-color;
-  color: $accent-color;
+  @include border(1px, color("secondary"));
+  color: color("secondary");
 
   &:hover {
     background: rgba($color: $accent-color, $alpha: 0.1);
@@ -56,36 +51,31 @@ input[type="file"] {
 }
 
 .label-file {
-  color: white;
-  height: rem(34);
-  width: rem(150);
-  cursor: pointer;
-  margin: 14px 0;
-  font-size: rem(13);
-  background: $accent-color;
-  border-radius: rem(5);
   display: flex;
   justify-content: center;
   align-items: center;
+  background: color("secondary");
+  color: color-on("secondary");
+  border-radius: border-radius("medium");
+
+  &:hover {
+    background: color("secondary-hover");
+  }
+
+  &:active {
+    background: color("secondary-active");
+  }
 }
 
 .btn-texted {
-  color: $accent-color;
+  color: color("secondary");
   padding: 0;
 
   &:hover {
-    color: adjust-color(
-      $color: $accent-color,
-      $saturation: 5%,
-      $lightness: 10%
-    );
+    color: color("secondary-hover");
   }
   &:active {
-    color: adjust-color(
-      $color: $accent-color,
-      $saturation: -10%,
-      $lightness: -10%
-    );
+    color: color("secondary-active");
   }
 }
 
@@ -102,13 +92,13 @@ input[type="file"] {
   cursor: pointer;
 }
 
+button > i {
+  width: 25px;
+  margin-right: 5px;
+}
+
 button {
   outline: none;
   background: none;
   border: none;
-}
-
-button > i {
-  width: 25px;
-  margin-right: 5px;
 }

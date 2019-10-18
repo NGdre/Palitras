@@ -13,7 +13,7 @@ import useChangeTitle from "../../lib/hooks/useChangeTitle";
 function FullPicture({ fetchOnePicture }) {
   const picture = useSelector(selectCurrentPicture);
   const IsPictureLoading = useSelector(selectIsLoading);
-  const { imagePath } = picture;
+  const { imagePaths } = picture;
 
   useEffect(() => {
     fetchOnePicture();
@@ -37,7 +37,7 @@ function FullPicture({ fetchOnePicture }) {
         <PictureInfo picture={picture} />
         <UserInfo author={author} />
       </section>
-      {imagePath && <ConditionalImage src={imagePath} />}
+      {imagePaths[0].path && <ConditionalImage src={imagePaths[0].path} />}
     </div>
   );
 }

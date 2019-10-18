@@ -16,7 +16,7 @@ function Dropdown(props) {
         <Link to="/account/upload" className="link dropdown-item">
           add picture
         </Link>
-        <button className="logout" onClick={props.logout}>
+        <button className="logout dropdown-item" onClick={props.logout}>
           logout
         </button>
       </div>

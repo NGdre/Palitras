@@ -16,7 +16,8 @@
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "node-sass": "^4.12.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,7 +46,6 @@
     "concurrently": "^4.1.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "node-sass": "^4.12.0",
     "sinon": "^7.4.2"
   }
 }

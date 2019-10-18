@@ -3,8 +3,11 @@
   position: relative;
 
   i {
-    font-size: 35px;
-    color: $second-font-color;
+    font-size: 28px;
+    color: darken(color-on("primary"), 8%);
+    border: 1px solid color-on("primary");
+    border-radius: 50%;
+    padding: 4px;
     cursor: pointer;
   }
 
@@ -14,7 +17,8 @@
   }
 
   &:hover i {
-    color: $primary-color;
+    color: darken(color-on("primary"), 20%);
+    border: 1px solid darken(color-on("primary"), 10%);
   }
 }
 
@@ -23,35 +27,36 @@
   right: 0;
   display: none;
   min-width: 160px;
-  background: $bg-color;
+  background: lighten(color("primary"), 10%);
   overflow: hidden;
   text-align: center;
   border-radius: 3px;
   z-index: 1;
 
   a:hover {
-    color: $main-font-color;
+    text-decoration: none;
   }
 
   .logout {
-    border-top: 1px solid rgb(71, 71, 71);
-    background: none;
+    border-top: 1px solid lighten(color-on("primary"), 10%);
     width: 100%;
     padding: 5px 0;
-    color: $default-color;
     cursor: pointer;
   }
 
-  a {
+  a,
+  button {
     display: inline-block;
   }
 
   .dropdown-item {
     width: 100%;
-    padding: 10px 20px;
+    padding: 8px 20px;
+    color: lighten(color-on("primary"), 10%);
 
     &:hover {
-      background: rgb(207, 205, 205);
+      background: lighten(color-on("primary"), 10%);
+      color: lighten(color("primary"), 10%);
     }
   }
 }

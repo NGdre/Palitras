@@ -8,11 +8,12 @@ nav {
 .main-nav {
   @include size(100%, 40px);
   display: flex;
-  position: relative;
   justify-content: flex-end;
   align-items: center;
-  background: $additional-color;
-  box-shadow: 0px 1px 1px darken($additional-color, 20%);
+
+  position: relative;
+  background: color("primary");
+  box-shadow: 0px 1px 2px darken(color("primary"), 20%);
 
   .nav-items {
     display: flex;
@@ -28,6 +29,7 @@ nav {
     display: flex;
     width: 30px;
     left: rem(30);
+
     .brand {
       font-family: "Kameron", serif;
       font-size: 20px;
@@ -40,12 +42,13 @@ nav {
 .nav-bar {
   @include size(100%, 50px);
   display: flex;
-  position: relative;
   justify-content: flex-end;
   align-items: center;
-  background: $primary-color;
+
+  position: relative;
+  background: color-on("primary");
   margin-bottom: 20px;
-  box-shadow: 0px 1px 1px darken($primary-color, 20%);
+  box-shadow: 0px 1px 1px darken(color-on("primary"), 20%);
 
   @include respond(phone) {
     @include size(100%, 200px);
@@ -87,10 +90,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-top: 100px;
-  background: $additional-color;
+  background: color("primary");
   padding: 15px;
-  color: white;
+  color: color-on("primary");
 
   @include respond(phone) {
     flex-direction: column-reverse;

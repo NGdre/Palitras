@@ -1,93 +1,66 @@
-import React, { Component } from "react";
-import { EmailInput, PasswordInput, SubmitInput } from "../../lib";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import useValidation from "../../lib/hooks/useValidation";
+import useRedirect from "../../lib/hooks/useRedirect";
+import validateAuth from "../../lib/utils/validateAuth";
 import PropTypes from "prop-types";
-import AnimatedBG from "./AnimatedBG";
+import TextInput from "../../lib/inputs/TextInput";
+import Button from "../../lib/buttons/Button";
 
-class AuthForm extends Component {
-  state = {
-    email: {
-      value: "",
-      isValid: false
-    },
-    password: {
-      value: "",
-      isValid: false
-    },
-    showErrors: false
+function AuthForm({ title, sendDataToServer }) {
+  const [isDataValid, setDataValid] = useState(false);
+  const { redirectTo, renderRedirect } = useRedirect();
+
+  const initialState = {
+    email: "",
+    password: ""
   };
 
-  isFieldsEmpty = () => {
-    const { email, password } = this.state;
-    return !(email.value && password.value);
-  };
+  const { values, errors, handleChange, handleBlur } = useValidation(
+    initialState,
+    validateAuth
+  );
 
-  isFieldsValid = () => {
-    const { email, password } = this.state;
-    return email.isValid && password.isValid;
-  };
+  useEffect(() => {
+    const noErrors = Object.keys(errors).length === 0;
+    console.log(errors);
+    setDataValid(noErrors);
+  }, [errors]);
 
-  handleInputValue = field => {
-    this.setState(state => {
-      const { value, isValid } = field;
-
-      return {
-        [field.type]: Object.assign(state[field.type], { value, isValid })
-      };
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    if (this.isFieldsValid()) {
-      this.setState({ showErrors: false });
-      const { email, password } = this.state;
-
-      const data = {
-        email: email.value,
-        password: password.value
-      };
-
-      this.props.sendDataToServer(data);
-    } else {
-      this.setState({ showErrors: true });
-    }
-  };
-
-  render() {
-    const isFieldsEmpty = this.isFieldsEmpty();
-    const { email, password, showErrors } = this.state;
-
-    const emailErrStatus = !email.isValid && showErrors;
-    const passwordErrStatus = !password.isValid && showErrors;
-
-    return (
-      <>
-        {this.props.isLogged && <Redirect to="/" />}
-        <AnimatedBG
-          shouldAnimate={this.props.shouldAnimate}
-          onAnimationEnd={this.props.setAuthorization}
-        />
-        <form onSubmit={this.handleSubmit}>
-          <EmailInput
-            onChangeField={this.handleInputValue}
-            showError={emailErrStatus}
-            fieldToValidate="email"
-            autoFocus={true}
-            errMessage="email is invalid"
-          />
-          <PasswordInput
-            onChangeField={this.handleInputValue}
-            showError={passwordErrStatus}
-            fieldToValidate="password"
-            errMessage="password is invalid"
-          />
-          <SubmitInput title={this.props.title} disabled={isFieldsEmpty} />
-          {this.props.message && <p className="err">{this.props.message}</p>}
-        </form>
-      </>
-    );
+  function redirectHome() {
+    redirectTo("/");
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    sendDataToServer(values);
+  }
+
+  return (
+    <>
+      {renderRedirect()}
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          type="email"
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          errMessage={errors.email}
+        />
+        <TextInput
+          type="password"
+          name="password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          errMessage={errors.password}
+        />
+        <p>forgot password?</p>
+        <Button type="submit" disabled={!isDataValid}>
+          {title}
+        </Button>
+      </form>
+    </>
+  );
 }
 
 AuthForm.propTypes = {

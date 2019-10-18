@@ -1,32 +1,68 @@
-.modal-notification {
+.modal-notification,
+.modal-message {
   position: fixed;
-  bottom: 50px;
-  left: 50px;
-  background: $additional-color;
-  padding: 10px 160px;
-  animation: expose 0.4s ease-out;
-  z-index: 5;
+  border-radius: radius("small");
+  background: color("primary");
   box-shadow: $bg-shadow;
-  p {
-    font-size: rem(18);
-    color: white;
+  animation: expose 0.2s ease-in;
+
+  p.message {
+    font-size: font-size("big");
+    color: color-on("primary");
   }
 }
 
+.modal-notification {
+  bottom: 50px;
+  left: 50px;
+  width: 500px;
+  padding: 10px;
+  z-index: z("snackbar");
+  text-align: left;
+}
+
 .modal-message {
-  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 5;
-  background: $additional-color;
-  padding: 100px 160px;
-  animation: expose 0.4s ease-out;
+  z-index: z("dialog");
+  width: 400px;
+  height: 200px;
+  padding: 25px;
+  border-radius: border-radius("small");
 
-  box-shadow: $bg-shadow;
+  .title {
+    color: color-on("primary");
 
-  p {
-    font-size: rem(18);
-    color: white;
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
+
+  button {
+    display: inline-block;
+  }
+
+  .dialog-actions {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 50%;
+  }
+}
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.border-top {
+  border-top: 1px solid darken(color-on("primary"), 20%);
+}
+
+.text-disabled {
+  color: darken(color-on("primary"), 20%);
 }

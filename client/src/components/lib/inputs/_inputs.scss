@@ -5,6 +5,15 @@
   align-items: center;
 }
 
+input:-webkit-autofill {
+  -webkit-text-fill-color: $default-color !important;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
 .input-group {
   margin: 30px 0;
   width: 80%;
@@ -13,9 +22,9 @@
 
 .form-label {
   position: absolute;
-  top: rem(-34);
+  top: rem(-27);
   left: 0;
-  font-size: rem(18);
+  font-size: font-size("big");
 
   &:first-letter {
     text-transform: uppercase;
@@ -24,19 +33,16 @@
 
 .form-control {
   display: block;
-  font-size: rem(18);
   position: relative;
   padding: rem(10);
-  border: 1px solid lighten($color: grey, $amount: 20%);
-  color: grey;
-  background: white;
-  outline: none;
-  border-radius: 3px;
+  font-size: font-size("big");
+  @include border(1px, lighten(color-on("surface"), $amount: 30%), "small");
+  color: color-on("surface");
   caret-color: $accent-color;
   width: 100%;
 
   &:hover {
-    background: darken($color: white, $amount: 3%);
+    background: darken(color("surface"), $amount: 3%);
   }
 
   &:focus ~ .helper-text {
@@ -44,8 +50,8 @@
   }
 
   &:focus {
-    border: 1px solid grey;
-    background: darken($color: white, $amount: 6%);
+    border: 1px solid color-on("surface");
+    background: darken(color("surface"), $amount: 6%);
   }
 }
 

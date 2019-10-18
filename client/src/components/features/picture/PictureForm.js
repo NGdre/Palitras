@@ -39,10 +39,11 @@ function PictureForm(props) {
     <div className="container wrapper">
       <form className="picture-form" onSubmit={handleSubmit}>
         <section className="upload">
-          <h3 className="section-header">upload files</h3>
+          <h5 className="section-header">upload files</h5>
           <div className="section-breaker"></div>
           <TextInput
             name="nameOfPicture"
+            title="name"
             placeholder="enter the name of the picture"
             onChange={handleChange}
             onBlur={handleBlur}
