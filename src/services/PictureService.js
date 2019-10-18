@@ -4,7 +4,25 @@ const path = require("path");
 const publicPath =
   process.env.NODE_ENV === "production" ? "client/build" : "client/public";
 
-const publicDestination = path.resolve(__dirname, `../../${publicPath}`);
+const publicDestination = path.join(__dirname, `../../${publicPath}`);
+
+function joinMultiplePaths(toPath, paths) {
+  return paths.map(p => path.join(toPath, p));
+}
+
+function deleteFiles(files) {
+  return new Promise((resolve, reject) => {
+    files.forEach((filepath, i) => {
+      fs.unlink(filepath, err => {
+        if (err) {
+          return reject(err);
+        } else if (files.length - 1 === i) {
+          return resolve(files);
+        }
+      });
+    });
+  });
+}
 
 class PictureService {
   constructor(Picture, User) {
@@ -19,13 +37,13 @@ class PictureService {
   async getPictures() {
     return await this.Picture.find({})
       .populate("author", "username email")
-      .select("_id name author imagePath image");
+      .select("_id name author imagePaths");
   }
 
   async getPicture(id) {
     return await this.Picture.findById(id)
       .populate("author", "email username avatar amountOfPictures")
-      .select("_id name author imagePath createdAt favAmount favUsers");
+      .select("_id name author imagePaths createdAt favAmount favUsers");
   }
 
   async findUserById(userId) {
@@ -55,16 +73,13 @@ class PictureService {
   async removePicture(id, user) {
     const picture = await this.findById(id);
 
-    const imagePath =
-      picture && path.join(publicDestination, `/${picture.imagePath}`);
+    const paths = picture.imagePaths.map(p => p.path);
+    const imagePaths = joinMultiplePaths(publicDestination, paths);
 
-    fs.unlink(imagePath, async err => {
-      if (err) {
-        return false;
-      }
-      const deleted = await user.removeMyPicture(id);
-      deleted && (await picture.remove());
-    });
+    const deletedPaths = await deleteFiles(imagePaths);
+
+    const deleted = deletedPaths.length && (await user.removeMyPicture(id));
+    deleted && (await picture.remove());
 
     return true;
   }

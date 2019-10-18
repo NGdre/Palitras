@@ -2,23 +2,25 @@ const express = require("express");
 const pictureRouter = express.Router();
 
 const multer = require("multer");
+const sharp = require("sharp");
+const fs = require("fs");
 const path = require("path");
 const { pictureService } = require("../../services");
 
 const destinationPath =
   process.env.NODE_ENV === "production"
-    ? "client/build/uploads/images/"
-    : "client/public/uploads/images/";
+    ? "client/build/uploads"
+    : "client/public/uploads";
 
-const destination = path.resolve(__dirname, `../../../${destinationPath}`);
+const destination = path.resolve(
+  __dirname,
+  `../../../${destinationPath}/images/`
+);
 
 const storage = multer.diskStorage({
   destination,
   filename: function(req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, createImageFileName({ file }, { temp: true }));
   }
 });
 
@@ -43,18 +45,70 @@ function checkFileType(file, cb) {
   }
 }
 
+function createImageFileName(
+  { file, dateNow = Date.now(), width },
+  options = {}
+) {
+  const baseName = `${file.fieldname}-${dateNow}`;
+  const ext = path.extname(file.originalname);
+
+  if (options.temp) {
+    `${baseName}-temp${ext}`;
+  }
+
+  if (width) {
+    return `${baseName}-w${width}${ext}`;
+  }
+
+  return `${baseName}${ext}`;
+}
+
 pictureRouter.post("/upload-picture", (req, res) => {
   upload(req, res, async err => {
     if (err) {
       res.json(err);
     } else {
       const { user } = res.locals;
+      const { file } = req;
 
+      const dateNow = Date.now();
+      const width = 450;
+
+      const smallImageBaseName = createImageFileName({ file, dateNow, width });
+      const imageBaseName = createImageFileName({ file, dateNow });
+
+      const smallPath = path.resolve(req.file.destination, smallImageBaseName);
+      const imagePath = path.resolve(req.file.destination, imageBaseName);
+
+      const public = "/uploads/images/";
       const data = {
         name: req.body.name,
         author: user,
-        imagePath: `/uploads/images/${req.file.filename}`
+        imagePaths: [
+          {
+            path: `${public}${imageBaseName}`
+          },
+          {
+            path: `${public}${smallImageBaseName}`,
+            width
+          }
+        ]
       };
+
+      try {
+        await sharp(req.file.path)
+          .resize(width)
+          .jpeg({ quality: 90 })
+          .toFile(smallPath);
+
+        const res = await sharp(req.file.path)
+          .jpeg({ quality: 85 })
+          .toFile(imagePath);
+
+        res && fs.unlinkSync(req.file.path);
+      } catch (error) {
+        console.log(error);
+      }
 
       const picture = await pictureService.addPicture(data);
 

@@ -110,7 +110,7 @@ class UserService {
 
   async getFavorites(id) {
     const currentUser = await this.User.findById(id)
-      .populate("favorites", "_id name author imagePath")
+      .populate("favorites", "_id name author imagePaths")
       .populate({
         path: "favorites",
         populate: { path: "author", select: "username email" }
@@ -122,7 +122,7 @@ class UserService {
   async getMyPictures(id) {
     const currentUser = await this.User.findById(id).populate(
       "pictures",
-      "_id name author imagePath"
+      "_id name author imagePaths"
     );
 
     return currentUser.pictures || [];

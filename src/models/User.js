@@ -99,7 +99,6 @@ class UserClass {
     if (index > -1) {
       this.pictures.splice(index, 1);
       this.amountOfPictures = this.pictures.length;
-      console.log(this);
       await this.save();
       return true;
     }

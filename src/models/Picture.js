@@ -12,10 +12,15 @@ const pictureSchema = new Schema(
       required: true,
       ref: "User"
     },
-    imagePath: {
-      type: String,
-      required: true
-    },
+    imagePaths: [
+      {
+        path: {
+          type: String,
+          required: true
+        },
+        width: Number
+      }
+    ],
     favAmount: { type: Number, default: 0 },
     favUsers: [
       {
