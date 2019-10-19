@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from "react";
-import useValidation from "../../lib/hooks/useValidation";
-import useRedirect from "../../lib/hooks/useRedirect";
-import validateAuth from "../../lib/utils/validateAuth";
 import PropTypes from "prop-types";
+
+import { useSelector } from "react-redux";
+import { selectMessage } from "../../actions/authSelectors";
+import { maxPasswordLength, minPasswordLength } from "../../../setupEnv";
+
+import useValidation from "../../lib/hooks/useValidation";
+import validateAuth from "../../lib/utils/validateAuth";
 import TextInput from "../../lib/inputs/TextInput";
 import Button from "../../lib/buttons/Button";
 
-function AuthForm({ title, sendDataToServer }) {
+function AuthForm({ title, type, sendDataToServer }) {
   const [isDataValid, setDataValid] = useState(false);
-  const { redirectTo, renderRedirect } = useRedirect();
+  const message = useSelector(selectMessage);
 
   const initialState = {
     email: "",
     password: ""
   };
 
-  const { values, errors, handleChange, handleBlur } = useValidation(
-    initialState,
-    validateAuth
-  );
+  const {
+    values,
+    errors,
+    shouldShowErr,
+    handleChange,
+    handleBlur
+  } = useValidation(initialState, validateAuth, {
+    maxLength: { password: maxPasswordLength },
+    minLength: { password: minPasswordLength }
+  });
 
   useEffect(() => {
     const noErrors = Object.keys(errors).length === 0;
-    console.log(errors);
+
     setDataValid(noErrors);
   }, [errors]);
-
-  function redirectHome() {
-    redirectTo("/");
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,26 +44,38 @@ function AuthForm({ title, sendDataToServer }) {
 
   return (
     <>
-      {renderRedirect()}
       <form onSubmit={handleSubmit}>
         <TextInput
           type="email"
           name="email"
+          autofocus={true}
           onChange={handleChange}
           onBlur={handleBlur}
+          outlined={true}
           errMessage={errors.email}
+          showErr={shouldShowErr.email}
+          required={true}
+          value={values.email}
+          leadingIcon="mail_outline"
         />
         <TextInput
           type="password"
           name="password"
           onChange={handleChange}
           onBlur={handleBlur}
-          errMessage={errors.password}
+          outlined={true}
+          errMessage={errors.password || message}
+          showErr={shouldShowErr.password}
+          required={true}
+          value={values.password}
+          leadingIcon="lock"
+          characterCount={maxPasswordLength}
         />
-        <p>forgot password?</p>
-        <Button type="submit" disabled={!isDataValid}>
-          {title}
-        </Button>
+        <div className="form-bottom border-top">
+          <Button type="submit" disabled={!isDataValid}>
+            {title}
+          </Button>
+        </div>
       </form>
     </>
   );

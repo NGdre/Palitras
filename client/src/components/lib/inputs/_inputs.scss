@@ -20,23 +20,13 @@ input {
   position: relative;
 }
 
-.form-label {
-  position: absolute;
-  top: rem(-27);
-  left: 0;
-  font-size: font-size("big");
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-}
-
-.form-control {
+.form-control,
+.form-control-outlined {
   display: block;
   position: relative;
   padding: rem(10);
   font-size: font-size("big");
-  @include border(1px, lighten(color-on("surface"), $amount: 30%), "small");
+
   color: color-on("surface");
   caret-color: $accent-color;
   width: 100%;
@@ -48,10 +38,31 @@ input {
   &:focus ~ .helper-text {
     opacity: 1;
   }
+}
+
+.form-control {
+  @include border(1px, lighten(color-on("surface"), $amount: 30%), "small");
 
   &:focus {
     border: 1px solid color-on("surface");
     background: darken(color("surface"), $amount: 6%);
+  }
+}
+
+.form-control-outlined {
+  border-bottom: 1px solid lighten(color-on("surface"), 30%);
+
+  &:focus ~ label,
+  &:valid ~ label {
+    top: -10px;
+    font-size: font-size("small");
+    color: color("secondary");
+  }
+
+  &:focus,
+  &:valid {
+    border-bottom: 1px solid color("secondary");
+    background: color("surface");
   }
 }
 
@@ -63,9 +74,61 @@ textarea {
   resize: none;
 }
 
+.form-label,
+.form-label-outlined {
+  position: absolute;
+  font-size: font-size("big");
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.form-label {
+  top: rem(-27);
+  left: 0;
+}
+
+.form-label-outlined {
+  position: absolute;
+  top: rem(10);
+  left: 35px;
+  padding: 0 4px;
+  transition: all 0.1s ease-out;
+}
+
+.leading-icon {
+  pointer-events: none;
+  position: absolute;
+  left: 8px;
+  top: 9px;
+}
+
 .trailing-icon {
   pointer-events: none;
   position: absolute;
-  right: 10px;
+  right: 8px;
   top: 9px;
+}
+
+.valid {
+  position: absolute;
+  display: inline;
+  top: 8px;
+  right: -30px;
+  margin-left: 8px;
+  color: $success-color;
+}
+
+.padding-left {
+  padding-left: rem(40);
+}
+
+.character-count {
+  position: absolute;
+  right: 0;
+}
+
+.err {
+  max-width: 80%;
 }

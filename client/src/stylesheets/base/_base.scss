@@ -5,14 +5,11 @@ body {
   font-size: $main-font-size; // 1rem = 10px 10px/16px = 62.5%
   background: color("bg");
   color: $main-font-color;
-  user-select: none;
+  // user-select: none;
   height: 100%;
 
   @include respond(laptop) {
     font-size: 56.25%; // 1rem = 9px 9px/16px = 56.25%
-  }
-  @include respond(tablet) {
-    font-size: 50%; // 1rem = 8px
   }
   @include respond(big-desk) {
     font-size: 75%; //1rem = 12px

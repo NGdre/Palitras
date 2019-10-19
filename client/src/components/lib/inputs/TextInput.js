@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ErrInput from "./ErrForInput";
 
 function TextInput({
   type = "text",
   required = false,
-  value,
+  value = undefined,
+  autofocus = false,
   onChange,
   onBlur,
+  showErr,
+  outlined = false,
   name,
   title,
   placeholder,
-  errMessage
+  errMessage,
+  leadingIcon,
+  trailingIcon,
+  characterCount
 }) {
+  const [isNotEmpty, setNotEmpty] = useState(false);
+
+  const inputClassName = outlined
+    ? "form-control-outlined padding-left"
+    : "form-control";
+
+  const labelClassName = outlined ? "form-label-outlined" : "form-label";
+
+  useEffect(() => {
+    setNotEmpty(!!value);
+  }, [value]);
+
   return (
     <div className="input-group">
       <input
@@ -20,12 +38,27 @@ function TextInput({
         value={value}
         required={required}
         placeholder={placeholder}
-        className="form-control"
+        className={inputClassName}
         onChange={onChange}
         onBlur={onBlur}
+        autoFocus={autofocus}
       />
-      <label className="form-label">{title || name}</label>
-      {errMessage && <ErrInput text={errMessage} />}
+      <label className={labelClassName}>{title || name}</label>
+      {leadingIcon && (
+        <i className="material-icons leading-icon">{leadingIcon}</i>
+      )}
+      {trailingIcon && (
+        <i className="material-icons trailing-icon">{trailingIcon}</i>
+      )}
+      {characterCount && (
+        <p className="character-count">
+          {value.length}/{characterCount}
+        </p>
+      )}
+      {!errMessage && isNotEmpty && (
+        <i className="material-icons valid">done</i>
+      )}
+      {showErr && <ErrInput text={errMessage} />}
     </div>
   );
 }

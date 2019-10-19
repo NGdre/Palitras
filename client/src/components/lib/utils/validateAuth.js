@@ -1,5 +1,7 @@
-export default function validateAuth(values) {
+export default function validateAuth(values, { minLength, maxLength }) {
   const errors = {};
+  const { password: maxPasswordLength } = maxLength;
+  const { password: minPasswordLength } = minLength;
 
   function isValidEmail(email) {
     const regex = /\S+@\S+\.\S+/;
@@ -7,7 +9,7 @@ export default function validateAuth(values) {
   }
 
   function isValidPassword(pass) {
-    const regex = /^[a-zA-Z0-9]{3,16}$/;
+    const regex = /^[a-zA-Z0-9]{4,20}$/;
     return regex.test(pass);
   }
 
@@ -19,8 +21,11 @@ export default function validateAuth(values) {
 
   if (!values.password) {
     errors.password = "password is required!";
-  } else if (values.password.length < 3 || values.password.length > 16) {
-    errors.password = "password should be in the range of 3 to 16";
+  } else if (
+    values.password.length < minPasswordLength ||
+    values.password.length > maxPasswordLength
+  ) {
+    errors.password = `password should be in the range of ${minPasswordLength} to ${maxPasswordLength}`;
   } else if (!isValidPassword(values.password)) {
     errors.password = "password should only consist numbers and letters";
   }

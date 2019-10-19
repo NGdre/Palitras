@@ -1,17 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import AuthForm from "./AuthForm";
 import { connect } from "react-redux";
+
 import { selectDataFetcher } from "../../actions/auth";
 import { setAuthorization } from "../../actions/auth";
 import PropTypes from "prop-types";
 
 export class AuthFormContainer extends Component {
   render() {
-    return (
-      <Fragment>
-        <AuthForm {...this.props} />
-      </Fragment>
-    );
+    return <AuthForm {...this.props} />;
   }
 }
 

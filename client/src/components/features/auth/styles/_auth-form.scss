@@ -1,2 +1,63 @@
 .auth-form {
+  height: 100%;
+  margin: 40px 0;
+  background: lighten(color("surface"), 10%);
+  border-radius: border-radius("medium");
+  padding: 30px 60px;
+  width: 400px;
+
+  .form-heading::first-letter {
+    text-transform: uppercase;
+  }
+
+  .form-heading,
+  .forgot-password {
+    text-align: center;
+  }
+
+  .form-heading,
+  label,
+  .forgot-password {
+    color: color-on("surface");
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button,
+  .input-group {
+    position: relative;
+    width: 100%;
+  }
+
+  .input-group {
+    margin: 25px 0;
+  }
+
+  button {
+    padding: 8px 0;
+  }
+
+  .form-bottom {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .alternate-action-text {
+    margin: 5px 0;
+    font-size: font-size("big");
+  }
+
+  .alternate-action {
+    color: color("secondary");
+  }
+
+  .err {
+    position: absolute;
+  }
 }

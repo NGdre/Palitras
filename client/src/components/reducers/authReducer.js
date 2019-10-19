@@ -10,12 +10,13 @@ import {
 
 const initialState = {
   isLogged: false,
-  message: null,
+  message: {
+    text: null
+  },
   logout: {
     status: false,
     message: "you are logged out"
-  },
-  shouldAnimate: false
+  }
 };
 
 export function authReducer(state = initialState, action) {
@@ -27,18 +28,28 @@ export function authReducer(state = initialState, action) {
         ...state,
         data: { email, password },
         message,
-        shouldAnimate: true
+        isLogged: true
       };
     }
 
     case SIGN_UP_FAIL:
-      return { ...state, message: action.err.message };
+      return {
+        ...state,
+        message: {
+          text: action.err.message
+        }
+      };
 
     case LOGIN_SUCCESS:
-      return { ...state, data: action.data, shouldAnimate: true };
+      return { ...state, data: action.data, isLogged: true };
 
     case LOGIN_FAIL:
-      return { ...state, message: action.err.message };
+      return {
+        ...state,
+        message: {
+          text: action.err.message
+        }
+      };
 
     case SET_AUTHORIZATION:
       return { ...state, isLogged: action.value };
