@@ -34,10 +34,12 @@ const EditPicture = ({ picture }) => {
           {imagePaths[0].path && <ConditionalImage src={imagePaths[0].path} />}
         </div>
         <section className="edit-actions">
-          <EditPictureForm picture={picture} />
-          <Button className="btn-texted" handleClick={handleRemove}>
-            remove picture
-          </Button>
+          <EditPictureForm picture={picture}>
+            <Button className="btn-texted" handleClick={handleRemove}>
+              remove picture
+            </Button>
+          </EditPictureForm>
+
           {showModal && (
             <Dialog
               buttonNames={{

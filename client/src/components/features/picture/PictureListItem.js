@@ -5,7 +5,7 @@ import { useSpring, animated } from "react-spring";
 import useFavorite from "../../lib/hooks/useFavorite";
 import useRedirect from "../../lib/hooks/useRedirect";
 
-const PictureListItem = React.memo(({ picture, isFavorite }) => {
+const PictureListItem = React.memo(({ picture, isFavorite, ...props }) => {
   const { redirectTo, renderRedirect } = useRedirect();
   const animationProps = useSpring({ opacity: 1, from: { opacity: 0 } });
 
@@ -18,11 +18,15 @@ const PictureListItem = React.memo(({ picture, isFavorite }) => {
     redirectTo(`/pictures/${picture._id}`);
   }
 
+  function redirectToUserProfile() {
+    redirectTo(`/users/${picture.author._id}`);
+  }
+
   const handleCollection = () => {
     console.log("hey", picture._id);
   };
 
-  const { author } = picture;
+  const author = picture.author || props.author;
 
   return (
     <>
@@ -34,11 +38,14 @@ const PictureListItem = React.memo(({ picture, isFavorite }) => {
           alt={picture.name}
           onClick={redirectToFullPicture}
         />
-        <div className="image-info">
-          <div>
+        <div className="image-bar">
+          <div className="image-info">
             <p className="image-name">{picture.name}</p>
-            <p className="author-name">
-              author: <i>{author.username}</i>
+            <p className="author-name-wrapper">
+              author:{" "}
+              <i className="author-name" onClick={redirectToUserProfile}>
+                {author.username}
+              </i>
             </p>
           </div>
           <div className="image-actions">

@@ -6,7 +6,7 @@ import useValidation from "../../lib/hooks/useValidation";
 import validatePicture from "../../lib/utils/validatePicture";
 import { updatePicture } from "../../actions/picture";
 
-const EditPictureForm = ({ picture }) => {
+const EditPictureForm = ({ picture, children }) => {
   const [isDataValid, setDataValid] = useState(false);
   const [isEdited, setEdited] = useState(false);
   const dispatch = useDispatch();
@@ -50,14 +50,18 @@ const EditPictureForm = ({ picture }) => {
     <form className="update-picture-form" onSubmit={handleSubmit}>
       <TextInput
         name="nameOfPicture"
+        title="name"
         value={values.nameOfPicture}
         onChange={handleChange}
         onBlur={handleBlur}
         errMessage={errors.nameOfPicture}
       />
-      <Button type="submit" disabled={submitStatus()}>
-        save
-      </Button>
+      <div className="btn-group">
+        <Button type="submit" disabled={submitStatus()}>
+          save
+        </Button>
+        {children}
+      </div>
     </form>
   );
 };

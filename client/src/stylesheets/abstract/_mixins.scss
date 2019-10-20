@@ -15,7 +15,7 @@
     } //900px
   }
   @if ($breakpoint == laptop) {
-    @media screen and (max-width: 75em) {
+    @media screen and (max-width: 80em) {
       @content;
     } //1200px
   }

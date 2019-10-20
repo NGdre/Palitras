@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PictureList from "../features/picture/PictureList";
 import { fetchFavorites } from "../actions/picture";
 import { selectFavorites } from "../actions/pictureSelectors";
+import PictureListContainer from "../features/picture/PictureListContainer";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,11 @@ const Favorites = () => {
 
   return (
     <div className="container">
-      <PictureList pictures={favorites} favorites={true} />
+      <PictureListContainer
+        pictures={favorites}
+        favorites={true}
+        from="picture"
+      />
     </div>
   );
 };

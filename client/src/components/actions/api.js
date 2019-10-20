@@ -13,5 +13,6 @@ export const pictureAPI = {
 
 export const userAPI = {
   fetchUserInfo: `${api}/user-info`,
+  fetchUserProfile: id => `${api}/get-user/${id}`,
   fetchMyPictures: `${api}/get-my-pictures`
 };

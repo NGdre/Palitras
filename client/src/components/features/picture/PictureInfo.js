@@ -36,6 +36,9 @@ function PictureInfo({ picture }) {
         </div>
         <div className="picture-info">
           {/* <p className="picture-views">views: 1 {picture.views}</p> */}
+          <p className="picture-name">
+            name: <strong>{picture.name}</strong>{" "}
+          </p>
           <p className="picture-date">
             uploaded at:{" "}
             <span className="date">{parseMongoDate(picture.createdAt)}</span>

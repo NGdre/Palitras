@@ -18,6 +18,13 @@ userRouter.get("/users", async (req, res) => {
   res.json(users);
 });
 
+userRouter.get("/get-user/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const user = await userService.getUser(id);
+  res.json(user);
+});
+
 userRouter.get("/get-favorites", async (req, res) => {
   const { user } = res.locals;
   const pictures = await userService.getFavorites(user.id);

@@ -10,6 +10,8 @@ import {
   Home,
   NotFound,
   Favorites,
+  ResetPassword,
+  UserProfilePage,
   MyPictures,
   EditPicturePage
 } from "../../pages/";
@@ -19,6 +21,7 @@ const SwitchRoutes = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/pictures/:id" component={Picture} />
+      <Route path="/users/:id" component={UserProfilePage} />
       <ProtectedRoute exact path="/account/upload" component={AddPicture} />
       <ProtectedRoute
         exact
@@ -41,6 +44,12 @@ const SwitchRoutes = () => {
         path="/sign-up"
         protectAuth="true"
         component={SignUp}
+        exact
+      />
+      <ProtectedRoute
+        path="/forgot-password"
+        protectAuth="true"
+        component={ResetPassword}
         exact
       />
       <Route path="*" component={NotFound} />

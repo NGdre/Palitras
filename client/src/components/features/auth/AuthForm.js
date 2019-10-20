@@ -55,22 +55,26 @@ function AuthForm({ title, type, sendDataToServer }) {
           errMessage={errors.email}
           showErr={shouldShowErr.email}
           required={true}
+          showValidIcon={true}
           value={values.email}
           leadingIcon="mail_outline"
         />
-        <TextInput
-          type="password"
-          name="password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          outlined={true}
-          errMessage={errors.password || message}
-          showErr={shouldShowErr.password}
-          required={true}
-          value={values.password}
-          leadingIcon="lock"
-          characterCount={maxPasswordLength}
-        />
+        {type !== "resetpassword" && (
+          <TextInput
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            outlined={true}
+            errMessage={errors.password || message}
+            showErr={shouldShowErr.password}
+            required={true}
+            value={values.password}
+            leadingIcon="lock"
+            showValidIcon={true}
+            characterCount={maxPasswordLength}
+          />
+        )}
         <div className="form-bottom border-top">
           <Button type="submit" disabled={!isDataValid}>
             {title}

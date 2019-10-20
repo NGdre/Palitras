@@ -8,8 +8,8 @@ export default function useValidation(initialState, validate, options = {}) {
   const names = options.maxLength && Object.keys(options.maxLength);
 
   function handleChange({ target }) {
-    if (names.length) {
-      for (let name of names) {
+    if (names && names.length) {
+      names.forEach(name => {
         const isValidLength =
           name === target.name &&
           target.value.length <= options.maxLength[name];
@@ -21,7 +21,7 @@ export default function useValidation(initialState, validate, options = {}) {
         if (name !== target.name) {
           setValues({ ...values, [target.name]: target.value });
         }
-      }
+      });
     } else {
       setValues({ ...values, [target.name]: target.value });
     }

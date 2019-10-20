@@ -10,12 +10,19 @@ function AuthFormWrapper(props) {
   return (
     <div className="container wrapper">
       <div className="auth-form">
-        <h3 className="form-heading">{title}</h3>
-
+        <h5 className="form-heading">{title}</h5>
+        {type === "resetpassword" && (
+          <p className="reset-password-info">
+            Enter your email address below and we'll send you a link to reset
+            your password.
+          </p>
+        )}
         <AuthFormContainer title={title} type={type} />
-        <Link to="/forgot-password" className="forgot-password link">
-          forgot password?
-        </Link>
+        {type !== "resetpassword" && (
+          <Link to="/forgot-password" className="forgot-password link">
+            forgot password?
+          </Link>
+        )}
         {type === "login" && (
           <p className="alternate-action-text">
             Don't have an account yet?{" "}

@@ -21,6 +21,14 @@ export const fetchMyPicturesActionCreators = createActions({
   }
 });
 
+export const fetchUserProfileActionCreators = createActions({
+  [reducerName]: {
+    FETCH_USER_PROFILE_REQUEST: undefined,
+    FETCH_USER_PROFILE_SUCCESS: data => ({ data }),
+    FETCH_USER_PROFILE_FAIL: err => ({ err })
+  }
+});
+
 export const addPictureInFavorites = createAction(
   `${reducerName}/ADD_PICTURE_IN_FAVORITES`,
   pictureId => ({ pictureId })
@@ -42,5 +50,10 @@ const userFetchDataAPI = url => () => async dispatch =>
 const fetchMyPicturesAPI = url => () => async dispatch =>
   createDispatchAPIFlow(url, dispatch, fetchMyPicturesActionCreators);
 
+const userFetchProfileAPI = url => id => async dispatch =>
+  createDispatchAPIFlow(url(id), dispatch, fetchUserProfileActionCreators);
+
+//fetchMyUserInfo
 export const fetchUserInfo = userFetchDataAPI(userAPI.fetchUserInfo);
+export const fetchUserProfile = userFetchProfileAPI(userAPI.fetchUserProfile);
 export const fetchMyPictures = fetchMyPicturesAPI(userAPI.fetchMyPictures);

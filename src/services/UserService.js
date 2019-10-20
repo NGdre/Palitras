@@ -104,8 +104,14 @@ class UserService {
 
   async getUserInfo(id) {
     return await this.User.findOne({ _id: id }).select(
-      "isVerified _id email username pictures amountOfPictures favorites"
+      "isVerified _id email username pictures amountOfPictures avatar favorites"
     );
+  }
+
+  async getUser(id) {
+    return await this.User.findById(id)
+      .populate("pictures", "_id name imagePaths")
+      .select("_id email username amountOfPictures pictures avatar");
   }
 
   async getFavorites(id) {

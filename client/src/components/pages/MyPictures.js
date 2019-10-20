@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PictureList from "../features/picture/PictureList";
+import PictureListContainer from "../features/picture/PictureListContainer";
 import { fetchMyPictures } from "../actions/user";
 import { selectMyPictures } from "../actions/userSelectors";
 
@@ -14,7 +14,12 @@ const MyPictures = () => {
 
   return (
     <div className="container">
-      <PictureList pictures={myPictures} favorites={false} />
+      <PictureListContainer
+        pictures={myPictures}
+        favorites={false}
+        myPictures={true}
+        from="user"
+      />
     </div>
   );
 };

@@ -1,13 +1,18 @@
 import { handleActions, combineActions } from "redux-actions";
 import {
   fetchInfoActionCreators,
+  fetchUserProfileActionCreators,
   fetchMyPicturesActionCreators
 } from "../actions/user";
 
 import { getActionsOfType } from "../lib/utils/actionHelpers";
 
 const { actionRequests, actionFails } = getActionsOfType(
-  [fetchInfoActionCreators, fetchMyPicturesActionCreators],
+  [
+    fetchInfoActionCreators,
+    fetchMyPicturesActionCreators,
+    fetchUserProfileActionCreators
+  ],
   {
     reducerName: "user"
   }
@@ -16,6 +21,7 @@ const { actionRequests, actionFails } = getActionsOfType(
 const initialState = {
   message: null,
   userInfo: {},
+  someUser: {},
   myPictures: [],
   editPicture: {}
 };
@@ -37,6 +43,12 @@ export const userReducer = handleActions(
       FETCH_INFO_SUCCESS: (state, { payload }) => ({
         ...state,
         userInfo: payload.data,
+        isLoading: false
+      }),
+
+      FETCH_USER_PROFILE_SUCCESS: (state, { payload }) => ({
+        ...state,
+        someUser: payload.data,
         isLoading: false
       }),
 

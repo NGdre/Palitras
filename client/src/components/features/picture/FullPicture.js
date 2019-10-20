@@ -37,7 +37,9 @@ function FullPicture({ fetchOnePicture }) {
         <PictureInfo picture={picture} />
         <UserInfo author={author} />
       </section>
-      {imagePaths[0].path && <ConditionalImage src={imagePaths[0].path} />}
+      <div className="image-wrapper">
+        {imagePaths[0].path && <ConditionalImage src={imagePaths[0].path} />}
+      </div>
     </div>
   );
 }

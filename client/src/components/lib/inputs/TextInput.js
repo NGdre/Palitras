@@ -14,6 +14,7 @@ function TextInput({
   title,
   placeholder,
   errMessage,
+  showValidIcon = false,
   leadingIcon,
   trailingIcon,
   characterCount
@@ -55,7 +56,7 @@ function TextInput({
           {value.length}/{characterCount}
         </p>
       )}
-      {!errMessage && isNotEmpty && (
+      {showValidIcon && !errMessage && isNotEmpty && (
         <i className="material-icons valid">done</i>
       )}
       {showErr && <ErrInput text={errMessage} />}
