@@ -106,7 +106,7 @@ const addFavoriteAPI = url => id => async dispatch =>
 
 const removeFavoriteAPI = url => id => async dispatch =>
   createDispatchAPIFlow(url(id), dispatch, removeFavoriteActionCreators, {
-    method: "patch"
+    method: "delete"
   });
 
 const removePictureAPI = url => id => async dispatch =>

@@ -1,28 +1,28 @@
-const User = require("../models/User");
-const createError = require("../utils/createError");
+const { userService } = require("../services/");
+const createError = require("http-errors");
 
-exports.byEmail = (req, res, next) => {
+exports.byEmail = async (req, res, next) => {
   const { email } = req.body;
 
-  User.findOne({ email }, (err, user) => {
-    if (err) {
-      next(createError(422, "wrong email or password"));
-    } else {
-      res.locals.user = user;
-      next();
-    }
-  });
+  const user = await userService.findUserByEmail(email);
+
+  if (!user) {
+    next(createError(422, "wrong email or password"));
+  } else {
+    res.locals.user = user;
+    next();
+  }
 };
 
-exports.byId = (req, res, next) => {
+exports.byId = async (req, res, next) => {
   const { userId } = req;
 
-  User.findOne({ _id: userId }, (err, user) => {
-    if (err) {
-      next(createError(422, "wrong email or password"));
-    } else {
-      res.locals.user = user;
-      next();
-    }
-  });
+  const user = await userService.findUserBy(userId);
+
+  if (!user) {
+    next(createError(404, "user not found"));
+  } else {
+    res.locals.user = user;
+    next();
+  }
 };

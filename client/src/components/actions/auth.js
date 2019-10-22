@@ -60,10 +60,13 @@ export function logOutEnd() {
 
 export function checkAuthorization(dispatch) {
   const AUTH_TOKEN = localStorage.getItem("token");
-  const predicate = Boolean(AUTH_TOKEN);
-  if (predicate) axios.defaults.headers.common["auth-token"] = AUTH_TOKEN;
+  const hasToken = Boolean(AUTH_TOKEN);
 
-  dispatch(setAuthorization(predicate));
+  if (hasToken) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
+  }
+
+  dispatch(setAuthorization(hasToken));
 }
 
 export function selectDataFetcher(type, data) {

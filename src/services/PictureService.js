@@ -10,6 +10,21 @@ function joinMultiplePaths(toPath, paths) {
   return paths.map(p => path.join(toPath, p));
 }
 
+function getFields({ fields, isInclude }) {
+  if (!fields) {
+    return {};
+  }
+
+  const fieldsKeys = fields.split(",");
+
+  const res = fieldsKeys.reduce((result, item) => {
+    result[item] = +isInclude;
+    return result;
+  }, {});
+
+  return res;
+}
+
 function deleteFiles(files) {
   return new Promise((resolve, reject) => {
     files.forEach((filepath, i) => {
@@ -34,10 +49,11 @@ class PictureService {
     return await this.Picture.findById(id).exec();
   }
 
-  async getPictures() {
-    return await this.Picture.find({})
+  async getPictures({ sort, selection }) {
+    return await this.Picture.find()
       .populate("author", "username email")
-      .select("_id name author imagePaths");
+      .select(getFields(selection))
+      .sort(sort);
   }
 
   async getPicture(id) {
@@ -47,7 +63,7 @@ class PictureService {
   }
 
   async findUserById(userId) {
-    return await this.User.findById(userId).exec();
+    return await this.User.findById(userId);
   }
 
   async addPicture(data) {

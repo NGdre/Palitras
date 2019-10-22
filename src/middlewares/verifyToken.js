@@ -1,15 +1,40 @@
 const jwt = require("jsonwebtoken");
+const createError = require("http-errors");
 
 function verifyToken(req, res, next) {
-  const token = req.header("auth-token");
+  const header = req.headers["authorization"];
 
-  if (!token) res.send("access denied");
+  if (!header) {
+    next(
+      createError(400, {
+        details: "you should set authorization header"
+      })
+    );
+  }
+
+  const bearer = header.split(" ");
+  const token = bearer[1];
+
+  if (!token) {
+    next(
+      createError(401, {
+        details: "you should authorize",
+        message: "access denied"
+      })
+    );
+  }
+
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.userId = verified._id;
+
     next();
   } catch (error) {
-    res.json({ message: "invalid token" });
+    next(
+      createError(422, {
+        details: "invalid token"
+      })
+    );
   }
 }
 

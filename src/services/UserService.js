@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const userValidation = require("../utils/userValidation");
-const createError = require("../utils/createError");
+const createError = require("http-errors");
 const emailService = require("./EmailService");
 
 class UserService {
@@ -72,8 +72,7 @@ class UserService {
     if (!foundToken) {
       throw createError(
         422,
-        "We were unable to find a valid token. Your token my have expired.",
-        true
+        "We were unable to find a valid token. Your token my have expired."
       );
     }
     return foundToken;
@@ -83,14 +82,10 @@ class UserService {
     let foundUser = await this.findUserBy(id);
 
     if (!foundUser) {
-      throw createError(
-        422,
-        "We were unable to find a user for this token",
-        true
-      );
+      throw createError(422, "We were unable to find a user for this token");
     }
     if (foundUser.isVerified) {
-      throw createError(422, "This user has already been verified.", true);
+      throw createError(422, "This user has already been verified.");
     }
     foundUser.isVerified = true;
     foundUser = await this.saveUser(foundUser);
@@ -99,11 +94,15 @@ class UserService {
   }
 
   async findUserBy(id) {
-    return await this.User.findOne({ _id: id }).exec();
+    return await this.User.findById(id);
+  }
+
+  async findUserByEmail(email) {
+    return await this.User.findOne({ email });
   }
 
   async getUserInfo(id) {
-    return await this.User.findOne({ _id: id }).select(
+    return await this.User.findById(id).select(
       "isVerified _id email username pictures amountOfPictures avatar favorites"
     );
   }

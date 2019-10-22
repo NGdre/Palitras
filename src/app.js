@@ -1,16 +1,15 @@
 const express = require("express");
 const path = require("path");
-
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const compression = require("compression");
 
-const index = require("./routes/index");
+const controllers = require("./controllers/");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use("/", index);
+app.use("/", controllers);
 
 const IN_PROD = process.env.NODE_ENV === "production";
 if (IN_PROD) {
@@ -33,14 +32,15 @@ if (IN_PROD) {
 }
 
 app.use((err, req, res, next) => {
-  console.error(err);
+  const log = err.statusCode ? `err, ${err.statusCode}, ${err.message}` : err;
+  console.error(log);
 
   if (!err.statusCode) {
+    err.message = "internal server error";
     err.statusCode = 500;
-    err.data.message = "internal server error";
   }
 
-  res.status(err.statusCode).json(err.data);
+  res.status(err.statusCode).json(err);
 });
 
 module.exports = app;
