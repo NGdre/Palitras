@@ -103,19 +103,19 @@ class UserService {
 
   async getUserInfo(id) {
     return await this.User.findById(id).select(
-      "isVerified _id email username pictures amountOfPictures avatar favorites"
+      "isVerified  email username pictures amountOfPictures avatar favorites"
     );
   }
 
   async getUser(id) {
-    return await this.User.findById(id)
-      .populate("pictures", "_id name imagePaths")
-      .select("_id email username amountOfPictures pictures avatar");
+    return await this.User.findById(id).select(
+      "email username amountOfPictures avatar about"
+    );
   }
 
   async getFavorites(id) {
     const currentUser = await this.User.findById(id)
-      .populate("favorites", "_id name author imagePaths")
+      .populate("favorites", "name author imagePaths")
       .populate({
         path: "favorites",
         populate: { path: "author", select: "username email" }
@@ -127,14 +127,14 @@ class UserService {
   async getMyPictures(id) {
     const currentUser = await this.User.findById(id).populate(
       "pictures",
-      "_id name author imagePaths"
+      "name author imagePaths"
     );
 
     return currentUser.pictures || [];
   }
 
   async getUsers() {
-    return await this.User.find({}).select("isVerified _id email username");
+    return await this.User.find({}).select("isVerified email username");
   }
 
   async saveUser(user) {

@@ -167,6 +167,11 @@ const updatePicture = wrapAsync(async (req, res) => {
   res.status(200).json({ message: "picture were updated!" });
 });
 
+pictureRouter
+  .route("/")
+  .get(getPictures)
+  .post(verify, findUser.byId, createPicture);
+
 pictureRouter.use(
   "/:pictureId",
   param("pictureId")
@@ -174,11 +179,6 @@ pictureRouter.use(
     .isMongoId(),
   hasValidationErr
 );
-
-pictureRouter
-  .route("/")
-  .get(getPictures)
-  .post(verify, findUser.byId, createPicture);
 
 pictureRouter
   .route("/:pictureId")

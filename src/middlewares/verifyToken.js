@@ -5,7 +5,7 @@ function verifyToken(req, res, next) {
   const header = req.headers["authorization"];
 
   if (!header) {
-    next(
+    return next(
       createError(400, {
         details: "you should set authorization header"
       })
@@ -16,7 +16,7 @@ function verifyToken(req, res, next) {
   const token = bearer[1];
 
   if (!token) {
-    next(
+    return next(
       createError(401, {
         details: "you should authorize",
         message: "access denied"

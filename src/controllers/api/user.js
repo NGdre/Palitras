@@ -86,19 +86,9 @@ userRouter.use(
   hasValidationErr
 );
 
-userRouter.use(
-  "/:userId",
-  param("userId")
-    .exists()
-    .isMongoId(),
-  hasValidationErr
-);
-
 userRouter.get("/", getUsers);
 
 userRouter.get("/me", getMyUser);
-
-userRouter.get("/:userId", getUserById);
 
 userRouter.get("/me/favorites", getMyFavorites);
 
@@ -107,5 +97,15 @@ userRouter.get("/me/pictures", getMyPictures);
 userRouter.patch("/me/favorite/:pictureId", addPictureInFavorites);
 
 userRouter.delete("/me/unfavorite/:pictureId", removePictureFromFavorites);
+
+userRouter.use(
+  "/:userId",
+  param("userId")
+    .exists()
+    .isMongoId(),
+  hasValidationErr
+);
+
+userRouter.get("/:userId", getUserById);
 
 module.exports = userRouter;

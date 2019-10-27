@@ -56,6 +56,16 @@ class PictureService {
       .sort(sort);
   }
 
+  async getFavorites({ sort, selection, userId }) {
+    const currentUser = await this.User.findById(userId).populate({
+      path: "favorites",
+      select: getFields(selection),
+      options: { sort }
+    });
+
+    return currentUser.favorites || [];
+  }
+
   async getPicture(id) {
     return await this.Picture.findById(id)
       .populate("author", "email username avatar amountOfPictures")
