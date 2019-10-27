@@ -31,7 +31,7 @@ const PictureListMyItem = React.memo(({ picture }) => {
           alt={picture.name}
           onClick={redirectToFullPicture}
         />
-        <div className="image-info">
+        <div className="image-bar">
           <p className="image-name">{picture.name}</p>
 
           <div className="image-actions">

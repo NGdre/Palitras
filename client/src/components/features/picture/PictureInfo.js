@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import { selectIsFavorite } from "../../actions/pictureSelectors";
 
-import { parseMongoDate } from "../../lib/utils";
+import { parseMongoDate } from "../../lib/utils/";
 
 function PictureInfo({ picture }) {
   const isFavorite = useSelector(selectIsFavorite);

@@ -2,22 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./components/reducers";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { ConnectedRouter } from "connected-react-router";
+import configureStore, { history } from "./components/reducers/store";
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <ConnectedRouter history={history}>
       <App />
-    </Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
 );

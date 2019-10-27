@@ -7,6 +7,7 @@ import Header from "./features/nav/Header";
 
 import { useDispatch } from "react-redux";
 import { checkAuthorization } from "./actions/auth";
+import { useSelector } from "react-redux";
 import { fetchUserInfo } from "./actions/user";
 import { clearCurrentPicture } from "./actions/picture";
 import useOnLeaveRoute from "./lib/hooks/useOnLeaveRoute";
@@ -16,25 +17,30 @@ import Footer from "./features/nav/Footer";
 
 function App(props) {
   const dispatch = useDispatch();
+  const isLogged = useSelector(state => state.auth.isLogged);
+
+  dispatch(checkAuthorization());
 
   useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [dispatch]);
+    if (isLogged) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, isLogged]);
 
   const { pathname } = props.location;
   useOnLeaveRoute(pathname, /pictures/, clearCurrentPicture, {
     changeTitle: websiteName
   });
 
-  checkAuthorization(dispatch);
-
   return (
-    <div>
+    <>
       <Header />
-      <SwitchRoutes />
+      <main className="height-100vh">
+        <SwitchRoutes />
+      </main>
       <SnackBar />
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -19,7 +19,7 @@ const PictureListItem = React.memo(({ picture, isFavorite, ...props }) => {
   }
 
   function redirectToUserProfile() {
-    redirectTo(`/users/${picture.author._id}`);
+    redirectTo(`/users/${picture.author._id}/?tab=latest`);
   }
 
   const handleCollection = () => {

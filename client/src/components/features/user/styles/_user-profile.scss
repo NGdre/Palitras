@@ -1,0 +1,22 @@
+.user-profile {
+  .user-section {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: lighten(color("primary"), 20%);
+  }
+
+  .avatar i {
+    padding: 15px;
+    font-size: 50px;
+    color: darken(color-on("primary"), 10%);
+    cursor: default;
+  }
+
+  p,
+  h4 {
+    color: color-on("primary");
+  }
+}

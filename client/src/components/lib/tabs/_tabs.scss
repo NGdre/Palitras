@@ -1,0 +1,36 @@
+.tabs {
+  background: color("surface");
+
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  a.unselected {
+    display: block;
+    padding: 5px 15px;
+    font-size: font-size("big");
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      color: darken(color("secondary"), 10%);
+    }
+
+    &:visited {
+      color: color-on("surface");
+    }
+  }
+
+  a.selected {
+    border-bottom: 1px solid color("secondary");
+  }
+}
+
+.red {
+  background: color("surface");
+  margin: 20px 0;
+  border-top: 1px solid lighten(color-on("surface"), 45%);
+  border-bottom: 1px solid lighten(color-on("surface"), 45%);
+}

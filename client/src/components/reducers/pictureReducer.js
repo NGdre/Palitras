@@ -1,14 +1,15 @@
 import { handleActions, combineActions } from "redux-actions";
 import {
-  fetchImagesActionCreators,
   fetchPictureActionCreators,
   uploadPictureActionCreators,
   fetchFavoritesActionCreators,
   removePictureActionCreators,
-  updatePictureActionCreators
+  updatePictureActionCreators,
+  FETCH_IMAGES_TYPES
 } from "../actions/picture";
 
 import { getActionsOfType } from "../lib/utils/actionHelpers";
+import { combineAPIActions } from "../lib/utils/";
 
 const initialState = {
   message: {
@@ -22,7 +23,6 @@ const initialState = {
 
 const { actionRequests, actionFails } = getActionsOfType(
   [
-    fetchImagesActionCreators,
     fetchPictureActionCreators,
     uploadPictureActionCreators,
     fetchFavoritesActionCreators,
@@ -49,10 +49,23 @@ export const pictureReducer = handleActions(
       isLoading: false
     }),
 
+    ...combineAPIActions([FETCH_IMAGES_TYPES[0]], state => ({
+      ...state,
+      isLoading: true
+    })),
+
+    ...combineAPIActions([FETCH_IMAGES_TYPES[2]], (state, action) => ({
+      ...state,
+      message: {
+        text: action.payload
+      },
+      isLoading: false
+    })),
+
     picture: {
       FETCH_IMAGES_SUCCESS: (state, action) => ({
         ...state,
-        pictures: action.payload.data,
+        pictures: action.payload,
         isLoading: false
       }),
 

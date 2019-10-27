@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { capitalizeFirstLetter } from "../utils";
+import { capitalizeFirstLetter } from "../utils/";
 
 export default function useChangeTitle(methods = {}) {
   const { addTitle } = methods;

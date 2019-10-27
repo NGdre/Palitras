@@ -1,9 +1,42 @@
 import { createActions, createAction } from "redux-actions";
+import { RSAA } from "redux-api-middleware";
 import makeRequestToAPI from "../lib/utils/makeRequestToAPI";
+import { makeActionPrefix } from "../lib/utils/";
 import { userAPI } from "./api";
 
 const reducerName = "user";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
+
+export const [USERS_PICTURES_TYPES, USERS_FAVORITES_TYPES] = makeActionPrefix(
+  reducerName,
+  ["USERS_PICTURES", "USERS_FAVORITES"]
+);
+
+export const getUsersPictures = userId => ({
+  [RSAA]: {
+    endpoint: `/api/pictures?author=${userId}?sort=createdAt`,
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    bailout: state => {
+      const hasPictures = !!state.user.usersPictures.length;
+      return hasPictures;
+    },
+    types: USERS_PICTURES_TYPES
+  }
+});
+
+export const getUsersFavorites = userId => ({
+  [RSAA]: {
+    endpoint: `/api/favorites/${userId}?sort=name`,
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    bailout: state => {
+      const hasPictures = !!state.user.usersFavorites.length;
+      return hasPictures;
+    },
+    types: USERS_FAVORITES_TYPES
+  }
+});
 
 export const fetchInfoActionCreators = createActions({
   [reducerName]: {

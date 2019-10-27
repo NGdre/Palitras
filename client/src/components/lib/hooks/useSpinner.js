@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import * as picture from "../../actions/pictureSelectors";
 import * as user from "../../actions/userSelectors";

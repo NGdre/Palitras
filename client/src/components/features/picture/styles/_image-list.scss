@@ -2,6 +2,7 @@
   width: 100%;
   grid-gap: rem(15);
   columns: 4;
+  padding: 10px;
   justify-items: center;
 
   @include respond(laptop) {

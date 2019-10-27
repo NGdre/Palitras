@@ -9,12 +9,15 @@
 @import "../components/features/nav/styles/nav";
 @import "../components/features/nav/styles/dropdown-nav";
 
+@import "../components/features/user/styles/user-profile";
+
 @import "../components/features/picture/styles/picture-form";
 @import "../components/features/picture/styles/image-list";
 @import "../components/features/picture/styles/full-picture";
 @import "../components/features/picture/styles/edit-picture";
 
 @import "../components/lib/inputs/inputs";
+@import "../components/lib/tabs/tabs";
 @import "../components/lib/buttons/buttons";
 @import "../components/lib/loadings/loading";
 @import "../components/lib/messages/messages.scss";

@@ -58,7 +58,7 @@ export function logOutEnd() {
   };
 }
 
-export function checkAuthorization(dispatch) {
+export function checkAuthorization() {
   const AUTH_TOKEN = localStorage.getItem("token");
   const hasToken = Boolean(AUTH_TOKEN);
 
@@ -66,7 +66,7 @@ export function checkAuthorization(dispatch) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
   }
 
-  dispatch(setAuthorization(hasToken));
+  return setAuthorization(hasToken);
 }
 
 export function selectDataFetcher(type, data) {
@@ -82,7 +82,7 @@ export function selectDataFetcher(type, data) {
 }
 
 export function signUp(data) {
-  const url = "/api/register";
+  const url = "/api/auth/register";
 
   return dispatch => {
     axios
@@ -99,7 +99,7 @@ export function signUp(data) {
 }
 
 export function login(data) {
-  const url = "/api/login";
+  const url = "/api/auth/login";
 
   return dispatch => {
     axios

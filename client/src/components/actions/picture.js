@@ -1,15 +1,26 @@
 import { createActions, createAction } from "redux-actions";
 import makeRequestToAPI from "../lib/utils/makeRequestToAPI";
 import { pictureAPI } from "./api";
+import { makeActionPrefix } from "../lib/utils/";
+import { RSAA } from "redux-api-middleware";
 
 const reducerName = "picture";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
 
-export const fetchImagesActionCreators = createActions({
-  [reducerName]: {
-    FETCH_IMAGES_REQUEST: undefined,
-    FETCH_IMAGES_SUCCESS: data => ({ data }),
-    FETCH_IMAGES_FAIL: err => ({ err })
+export const [FETCH_IMAGES_TYPES] = makeActionPrefix(reducerName, [
+  "FETCH_IMAGES"
+]);
+
+export const fetchPictures = () => ({
+  [RSAA]: {
+    endpoint: pictureAPI.fetchPictures,
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    bailout: state => {
+      const hasPictures = !!state.picture.pictures.length;
+      return hasPictures;
+    },
+    types: FETCH_IMAGES_TYPES
   }
 });
 
@@ -90,9 +101,6 @@ const uploadPictureAPI = url => data => async dispatch => {
   });
 };
 
-const fetchPicturesAPI = url => () => async dispatch =>
-  createDispatchAPIFlow(url, dispatch, fetchImagesActionCreators);
-
 const fetchFavoritesAPI = url => () => async dispatch =>
   createDispatchAPIFlow(url, dispatch, fetchFavoritesActionCreators);
 
@@ -121,7 +129,6 @@ const updatePictureAPI = url => (id, data) => async dispatch =>
   });
 
 export const uploadPicture = uploadPictureAPI(pictureAPI.uploadPicture);
-export const fetchPictures = fetchPicturesAPI(pictureAPI.fetchPictures);
 export const fetchFavorites = fetchFavoritesAPI(pictureAPI.fetchFavorites);
 export const fetchOnePicture = fetchOnePictureAPI(pictureAPI.fetchOnePicture);
 export const addFavorite = addFavoriteAPI(pictureAPI.addFavorite);

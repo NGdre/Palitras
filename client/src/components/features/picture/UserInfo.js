@@ -13,7 +13,7 @@ function UserInfo({ author }) {
       </div>
 
       <div className="user-info">
-        <strong className="username">{author.username || author.email}</strong>
+        <h4 className="username">{author.username || author.email}</h4>
         <div>
           {/* <p className="followers">{author.amountOfFollowers}2 followers</p> */}
           <p className="pictures-amount">{author.amountOfPictures} pictures</p>
