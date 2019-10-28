@@ -12,3 +12,4 @@ export const selectIsFavorite = state => {
 
 export const selectFavorites = state => state.picture.favorites;
 export const selectIsLoading = state => state.picture.isLoading;
+export const selectPicturesName = state => state.picture.currentPicture.name;

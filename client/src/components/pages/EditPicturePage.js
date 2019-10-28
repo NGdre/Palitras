@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Helmet } from "react-helmet";
 import { selectEditPicture, selectMyPictures } from "../actions/userSelectors";
 import { fetchMyPictures } from "../actions/user";
 import EditPicture from "../features/picture/EditPicture";
@@ -24,9 +25,14 @@ function EditPicturePage(props) {
   };
 
   return (
-    <div className="container">
-      {getPicture() ? <EditPicture picture={getPicture()} /> : <Spinner />}
-    </div>
+    <>
+      <Helmet>
+        <title>Edit My Picture | Palitras</title>
+      </Helmet>
+      <div className="container">
+        {getPicture() ? <EditPicture picture={getPicture()} /> : <Spinner />}
+      </div>
+    </>
   );
 }
 

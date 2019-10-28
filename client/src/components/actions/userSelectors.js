@@ -5,3 +5,5 @@ export const selectUsersPictures = state => state.user.usersPictures;
 export const selectUsersFavorites = state => state.user.usersFavorites;
 export const selectEditPicture = state => state.user.editPicture;
 export const selectIsLoading = state => state.user.isLoading;
+export const selectUsernameOfUser = state => state.user.someUser.username;
+export const selectEmailOfUser = state => state.user.someUser.email;

@@ -28,9 +28,7 @@ function App(props) {
   }, [dispatch, isLogged]);
 
   const { pathname } = props.location;
-  useOnLeaveRoute(pathname, /pictures/, clearCurrentPicture, {
-    changeTitle: websiteName
-  });
+  useOnLeaveRoute(pathname, /pictures/, clearCurrentPicture);
 
   return (
     <>

@@ -8,7 +8,6 @@ import {
   selectCurrentPicture,
   selectIsLoading
 } from "../../actions/pictureSelectors";
-import useChangeTitle from "../../lib/hooks/useChangeTitle";
 
 function FullPicture({ fetchOnePicture }) {
   const picture = useSelector(selectCurrentPicture);
@@ -18,8 +17,6 @@ function FullPicture({ fetchOnePicture }) {
   useEffect(() => {
     fetchOnePicture();
   }, [fetchOnePicture]);
-
-  useChangeTitle({ addTitle: picture.name });
 
   if (IsPictureLoading !== false) {
     return <Spinner />;

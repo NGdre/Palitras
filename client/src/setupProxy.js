@@ -5,7 +5,8 @@ module.exports = function(app) {
     "/api",
     proxy({
       target: "http://[::1]:3001",
-      changeOrigin: true
+      changeOrigin: true,
+      secure: false
     })
   );
 };
