@@ -3,13 +3,15 @@ import makeRequestToAPI from "../lib/utils/makeRequestToAPI";
 import { pictureAPI } from "./api";
 import { makeActionPrefix } from "../lib/utils/";
 import { RSAA } from "redux-api-middleware";
+import axios from "axios";
 
 const reducerName = "picture";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
 
-export const [FETCH_IMAGES_TYPES] = makeActionPrefix(reducerName, [
-  "FETCH_IMAGES"
-]);
+export const [FETCH_IMAGES_TYPES, UPLOAD_PICTURE_TYPES] = makeActionPrefix(
+  reducerName,
+  ["FETCH_IMAGES"]
+);
 
 export const fetchPictures = () => ({
   [RSAA]: {
@@ -84,6 +86,17 @@ export const clearCurrentPicture = createAction(
   `${reducerName}/CLEAR_CURRENT_PICTURE`
 );
 
+export const setUploadPercentage = createAction(
+  `${reducerName}/SET_UPLOAD_PERCENTAGE`,
+  percentage => ({ percentage })
+);
+
+const {
+  uploadPictureRequest,
+  uploadPictureSuccess,
+  uploadPictureFail
+} = uploadPictureActionCreators.picture;
+
 const uploadPictureAPI = url => data => async dispatch => {
   const { pictureFile, nameOfPicture } = data;
 
@@ -95,11 +108,27 @@ const uploadPictureAPI = url => data => async dispatch => {
   );
   formData.append("name", nameOfPicture);
 
-  createDispatchAPIFlow(url, dispatch, uploadPictureActionCreators, {
-    method: "post",
-    data: formData
-  });
+  dispatch(uploadPictureRequest());
+
+  axios
+    .request({
+      method: "post",
+      url,
+      data: formData,
+      onUploadProgress: p => {
+        const percentage = parseInt(Math.round((p.loaded * 100) / p.total));
+        dispatch(setUploadPercentage(percentage));
+      }
+    })
+    .then(data => {
+      dispatch(uploadPictureSuccess(data));
+    })
+    .catch(err => {
+      dispatch(uploadPictureFail(err));
+    });
 };
+
+console.log(uploadPictureRequest);
 
 const fetchFavoritesAPI = url => () => async dispatch =>
   createDispatchAPIFlow(url, dispatch, fetchFavoritesActionCreators);

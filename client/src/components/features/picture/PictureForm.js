@@ -7,9 +7,13 @@ import validatePicture from "../../lib/utils/validatePicture";
 import ConditionalImage from "../../lib/images/ConditionalImage";
 import useValidation from "../../lib/hooks/useValidation";
 import useFileHandler from "../../lib/hooks/useFileHandler";
+import { useSelector } from "react-redux";
+import Progress from "../../lib/progress/Progress";
 
 function PictureForm(props) {
   const [isDataValid, setDataValid] = useState(false);
+
+  const uploadPercentage = useSelector(state => state.picture.uploadPercentage);
 
   const initialState = {
     nameOfPicture: ""
@@ -52,8 +56,8 @@ function PictureForm(props) {
 
           <FileInput name="picture" onChange={handleFileChange} />
           <ConditionalImage src={imageDataURl} />
+          {uploadPercentage && <Progress value={uploadPercentage} />}
         </section>
-
         <Button type="submit" className="btn-big" disabled={!isDataValid}>
           add
         </Button>

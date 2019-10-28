@@ -7,8 +7,9 @@ function NotFound() {
       <Helmet>
         <title>Not found | Palitras</title>
       </Helmet>
-      <div className="container">
-        <p style={{ textAlign: "center" }}>404, This page not found</p>;
+      <div className="container" style={{ textAlign: "center" }}>
+        <h2>Page not found</h2>
+        <strong style={{ fontSize: "24px" }}>Error 404</strong>
       </div>
     </>
   );

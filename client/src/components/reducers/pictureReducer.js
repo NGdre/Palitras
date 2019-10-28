@@ -18,7 +18,8 @@ const initialState = {
   },
   pictures: [],
   currentPicture: {},
-  favorites: []
+  favorites: [],
+  uploadPercentage: null
 };
 
 const { actionRequests, actionFails } = getActionsOfType(
@@ -63,6 +64,11 @@ export const pictureReducer = handleActions(
     })),
 
     picture: {
+      SET_UPLOAD_PERCENTAGE: (state, { payload }) => ({
+        ...state,
+        uploadPercentage: payload.percentage
+      }),
+
       FETCH_IMAGES_SUCCESS: (state, action) => ({
         ...state,
         pictures: action.payload,
