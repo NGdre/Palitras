@@ -3,14 +3,19 @@ import ConditionalImage from "../../lib/images/ConditionalImage";
 import Spinner from "../../lib/loadings/Spinner";
 import UserInfo from "./UserInfo";
 import { useSelector } from "react-redux";
-import PictureInfo from "./PictureInfo";
+
 import {
   selectCurrentPicture,
   selectIsLoading
 } from "../../actions/pictureSelectors";
 
+import PictureInfo from "./PictureInfo";
+import PictureActionsProvider from "./PictureActionsProvider";
+import { selectIsFavorite } from "../../actions/pictureSelectors";
+
 function FullPicture({ fetchOnePicture }) {
   const picture = useSelector(selectCurrentPicture);
+  const isFavorite = useSelector(selectIsFavorite);
   const IsPictureLoading = useSelector(selectIsLoading);
   const { imagePaths } = picture;
 
@@ -31,7 +36,11 @@ function FullPicture({ fetchOnePicture }) {
   return (
     <div className="full-picture">
       <section className="wrapper">
-        <PictureInfo picture={picture} />
+        <PictureActionsProvider
+          picture={picture}
+          isFavorite={isFavorite}
+          render={props => <PictureInfo {...props} />}
+        />
         <UserInfo author={author} />
       </section>
       <div className="image-wrapper">

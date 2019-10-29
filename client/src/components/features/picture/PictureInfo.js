@@ -1,24 +1,14 @@
 import React from "react";
 import Button from "../../lib/buttons/Button";
-import useFavorite from "../../lib/hooks/useFavorite";
-import { useSelector } from "react-redux";
-
-import { selectIsFavorite } from "../../actions/pictureSelectors";
 
 import { parseMongoDate } from "../../lib/utils/";
 
-function PictureInfo({ picture }) {
-  const isFavorite = useSelector(selectIsFavorite);
-
-  const { handleFavorites, isAddedInFavorites } = useFavorite(
-    isFavorite,
-    picture
-  );
-
-  const handleCollections = () => {
-    console.log("this is doesn't work yet");
-  };
-
+function PictureInfo({
+  picture,
+  handleCollections,
+  handleFavorites,
+  isAddedInFavorites
+}) {
   return (
     <>
       <section className="picture-section">

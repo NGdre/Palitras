@@ -3,6 +3,7 @@ import React from "react";
 import PictureListItem from "./PictureListItem";
 
 import PictureListMyItem from "./PictureListMyItem";
+import PictureActionsProvider from "./PictureActionsProvider";
 
 function PictureList({
   pictures = [],
@@ -10,16 +11,17 @@ function PictureList({
   myPictures = false,
   author = {}
 }) {
+  console.log(isFavorite);
   return (
     <section className="picture-list">
       <ul className="image-list">
         {pictures.map(picture => {
           return !myPictures ? (
-            <PictureListItem
+            <PictureActionsProvider
               picture={picture}
-              author={author}
-              key={picture._id}
               isFavorite={isFavorite(picture)}
+              render={props => <PictureListItem {...props} author={author} />}
+              key={picture._id}
             />
           ) : (
             <PictureListMyItem picture={picture} key={picture._id} />

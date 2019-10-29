@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt from "jsonwebtoken";
 import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAIL,
@@ -62,11 +63,22 @@ export function checkAuthorization() {
   const AUTH_TOKEN = localStorage.getItem("token");
   const hasToken = Boolean(AUTH_TOKEN);
 
-  if (hasToken) {
+  const decoded = jwt.decode(AUTH_TOKEN);
+  const timeNow = Math.floor(Date.now() / 1000);
+
+  const isExpired = timeNow > (decoded ? decoded.exp : 0);
+
+  const isValidToken = hasToken && !isExpired;
+
+  if (isExpired) {
+    localStorage.removeItem("token");
+  }
+
+  if (isValidToken) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
   }
 
-  return setAuthorization(hasToken);
+  return setAuthorization(isValidToken);
 }
 
 export function selectDataFetcher(type, data) {

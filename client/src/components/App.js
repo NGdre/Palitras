@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import "../stylesheets/main.scss";
-import { websiteName } from "../setupEnv";
 
 import Header from "./features/nav/Header";
 
