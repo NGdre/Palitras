@@ -19,7 +19,7 @@ const createUser = wrapAsync(async (req, res) => {
     userService.createTokenFor(savedUser);
 
     const jwtoken = jwt.sign({ _id: savedUser._id }, process.env.TOKEN_SECRET, {
-      expiresIn: "1h"
+      expiresIn: "330h"
     });
 
     res.json({
@@ -41,7 +41,7 @@ const loginUser = wrapAsync(async (req, res) => {
 
     if (isCorrect) {
       const jwtoken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-        expiresIn: "24h"
+        expiresIn: "330h"
       });
 
       res.status(201).json({ jwtoken });

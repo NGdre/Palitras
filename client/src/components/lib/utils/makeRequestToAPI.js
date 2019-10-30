@@ -19,7 +19,6 @@ const makeRequestToAPI = reducerName => async (
 
   try {
     const res = await axios({ method, url, data });
-
     if (res.status < 400) {
       dispatch(successActionCreator(res.data, additional));
     } else {

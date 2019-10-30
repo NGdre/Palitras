@@ -60,7 +60,7 @@ const addPictureInFavorites = wrapAsync(async (req, res) => {
   res.status(201).json({ message: "picture were added in favorites" });
 });
 
-const removePictureFromFavorites = async (req, res) => {
+const removePictureFromFavorites = wrapAsync(async (req, res) => {
   const { pictureId: id } = req.params;
   const { user } = res.locals;
 
@@ -68,12 +68,12 @@ const removePictureFromFavorites = async (req, res) => {
 
   if (!result.updated) {
     throw createError(400, {
-      message: "picture has already been added!"
+      message: "picture has already been removed from favorites!"
     });
   }
 
-  res.status(204).json({ message: "picture has already been removed!" });
-};
+  res.status(200).json({ message: "picture were removed from favorites!" });
+});
 
 userRouter.use(["/me"], verify);
 userRouter.use(["/me"], findUser.byId);

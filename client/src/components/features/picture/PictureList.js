@@ -1,30 +1,40 @@
 import React from "react";
 
+import PictureListMyItem from "./PictureListMyItem";
 import PictureListItem from "./PictureListItem";
 
-import PictureListMyItem from "./PictureListMyItem";
-import PictureActionsProvider from "./PictureActionsProvider";
+const ImageStrategy = ({ picture, isFavorite, myPictures, author }) => {
+  if (myPictures) {
+    return <PictureListMyItem picture={picture} />;
+  }
+
+  return (
+    <PictureListItem
+      author={author}
+      picture={picture}
+      isFavorite={isFavorite(picture)}
+    />
+  );
+};
 
 function PictureList({
   pictures = [],
   isFavorite,
   myPictures = false,
-  author = {}
+  author
 }) {
-  console.log(isFavorite);
   return (
     <section className="picture-list">
       <ul className="image-list">
         {pictures.map(picture => {
-          return !myPictures ? (
-            <PictureActionsProvider
+          return (
+            <ImageStrategy
+              author={author}
               picture={picture}
-              isFavorite={isFavorite(picture)}
-              render={props => <PictureListItem {...props} author={author} />}
+              isFavorite={isFavorite}
               key={picture._id}
+              myPictures={myPictures}
             />
-          ) : (
-            <PictureListMyItem picture={picture} key={picture._id} />
           );
         })}
       </ul>

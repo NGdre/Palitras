@@ -1,13 +1,15 @@
+import React from "react";
 import useFavorite from "../../lib/hooks/useFavorite";
 import useIsLogged from "../../lib/hooks/useIsLogged";
 import _ from "lodash";
+import PictureActions from "./PictureActions";
 
-export default function PictureActionsProvider({
+export default function PictureActionsContainer({
   picture,
   isFavorite,
-  render,
   ...props
 }) {
+  console.log("call", props);
   const { handleFavorites, isAddedInFavorites } = useFavorite(
     isFavorite,
     picture
@@ -21,11 +23,14 @@ export default function PictureActionsProvider({
     console.log("this is doesn't work yet");
   };
 
-  return render({
-    ...props,
-    picture,
-    handleCollections: _.throttle(handleCollections, 2000),
-    handleFavorites: handleFavoritesWithValidation,
-    isAddedInFavorites
-  });
+  return (
+    <PictureActions
+      {...props}
+      picture={picture}
+      handleCollections={_.throttle(handleCollections, 2000)}
+      handleFavorites={handleFavoritesWithValidation}
+      isAddedInFavorites={isAddedInFavorites}
+      favAmount={picture.favAmount}
+    />
+  );
 }

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Helmet } from "react-helmet";
 import { selectEditPicture, selectMyPictures } from "../actions/userSelectors";
 import { fetchMyPictures } from "../actions/user";
-import EditPicture from "../features/picture/EditPicture";
+import EditPicture from "../features/editting-picture/EditPicture";
 import Spinner from "../lib/loadings/Spinner";
 
 function EditPicturePage(props) {

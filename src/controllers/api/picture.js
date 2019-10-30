@@ -149,7 +149,7 @@ const removePicture = wrapAsync(async (req, res) => {
     throw createError(400, "picture has already been removed!");
   }
 
-  res.status(204).json({ message: "picture were removed!" });
+  res.status(200).json({ message: "picture were removed!" });
 });
 
 const updatePicture = wrapAsync(async (req, res) => {
