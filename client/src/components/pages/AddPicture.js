@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import PictureFormContainer from "../features/adding-picture/PictureFormContainer";
+import PictureFormContainer from "../features/adding-picture/PictureFormContainer.tsx";
 
 function AddPicture() {
   return (

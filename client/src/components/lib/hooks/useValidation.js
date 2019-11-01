@@ -51,11 +51,17 @@ export default function useValidation(initialState, validate, options = {}) {
     setShowErr({ ...shouldShowErr, [name]: errStatus });
   }
 
+  function clear() {
+    setValues(initialState);
+    setErrors({});
+  }
+
   return {
     values,
     errors,
     shouldShowErr,
     handleChange,
-    handleBlur
+    handleBlur,
+    clear
   };
 }

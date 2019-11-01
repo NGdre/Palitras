@@ -28,7 +28,10 @@ const initialState = {
   usersPictures: [],
   usersFavorites: [],
   myPictures: [],
-  editPicture: {}
+  editPicture: {},
+  notifications: {
+    message: null
+  }
 };
 
 export const userReducer = handleActions(
@@ -62,11 +65,21 @@ export const userReducer = handleActions(
     ),
 
     user: {
-      FETCH_INFO_SUCCESS: (state, { payload }) => ({
-        ...state,
-        userInfo: payload.data,
-        isLoading: false
-      }),
+      FETCH_INFO_SUCCESS: (state, { payload }) => {
+        const message = !payload.data.isVerified
+          ? "you should verify your email"
+          : null;
+
+        return {
+          ...state,
+          userInfo: payload.data,
+          notifications: {
+            ...state.notifications,
+            message
+          },
+          isLoading: false
+        };
+      },
 
       FETCH_USER_PROFILE_SUCCESS: (state, { payload }) => ({
         ...state,

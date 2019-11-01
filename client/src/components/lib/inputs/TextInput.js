@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import ErrInput from "./ErrForInput";
+import React, { useState, useEffect, useRef } from "react";
 
 function TextInput({
   type = "text",
@@ -8,18 +7,20 @@ function TextInput({
   autofocus = false,
   onChange,
   onBlur,
-  showErr,
+  showErr = false,
   outlined = false,
   name,
+  clear = false,
   title,
   placeholder,
   errMessage,
   showValidIcon = false,
-  leadingIcon,
-  trailingIcon,
-  characterCount
+  leadingIcon = undefined,
+  trailingIcon = undefined,
+  characterCount = undefined
 }) {
   const [isNotEmpty, setNotEmpty] = useState(false);
+  const inputRef = useRef(null);
 
   const inputClassName = outlined
     ? "form-control-outlined padding-left"
@@ -31,9 +32,16 @@ function TextInput({
     setNotEmpty(!!value);
   }, [value]);
 
+  useEffect(() => {
+    if (clear === true) {
+      inputRef.current.value = "";
+    }
+  }, [clear]);
+
   return (
     <div className="input-group">
       <input
+        ref={inputRef}
         type={type}
         name={name}
         value={value}
@@ -59,7 +67,7 @@ function TextInput({
       {showValidIcon && !errMessage && isNotEmpty && (
         <i className="material-icons valid">done</i>
       )}
-      {showErr && <ErrInput text={errMessage} />}
+      {showErr && <p className="err">{errMessage}</p>}
     </div>
   );
 }

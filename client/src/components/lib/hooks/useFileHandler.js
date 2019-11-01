@@ -16,9 +16,15 @@ export default function useFileHandler() {
     reader.readAsDataURL(currentFile);
   }
 
+  function clear() {
+    setFileValue({});
+    setImageDataURl("");
+  }
+
   return {
     fileValue,
     imageDataURl,
-    handleFileChange
+    handleFileChange,
+    clear
   };
 }

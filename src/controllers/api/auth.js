@@ -2,9 +2,14 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const { userService } = require("../../services/");
-const wrapAsync = require("../../middlewares/wrapAsync");
-const createError = require("../../utils/createError");
-const findUser = require("../../middlewares/findUser");
+const createError = require("http-errors");
+const { param } = require("express-validator");
+const {
+  verify,
+  wrapAsync,
+  findUser,
+  hasValidationErr
+} = require("../../middlewares/");
 const authRouter = express.Router();
 
 const createUser = wrapAsync(async (req, res) => {
@@ -80,12 +85,40 @@ const resetUsersPassword = wrapAsync(async (req, res) => {
   }
 });
 
-authRouter.use(["/login", "/reset-password/:token"], findUser.byEmail);
+const verifyUser = wrapAsync(async (req, res) => {
+  const { token } = req.params;
+
+  const { user } = res.locals;
+
+  const foundToken = await userService.findToken(token).catch(err => {
+    throw err;
+  });
+
+  if (foundToken) {
+    await userService.updateUser({ isVerified: true }, user);
+    res.json({ message: "you're email was verified" });
+    userService.removeToken(foundToken);
+  } else {
+    res.json({ message: "token not found" });
+  }
+});
+
+authRouter.use(["/login", "/reset-password/"], findUser.byEmail);
+
+authRouter.use(
+  "/verify/:token",
+  param("token").exists(),
+  hasValidationErr,
+  verify,
+  findUser.byId
+);
 
 authRouter.post("/register", createUser);
 
 authRouter.post("/login", loginUser);
 
 authRouter.put("/reset-password/:token", resetUsersPassword);
+
+authRouter.put("/verify/:token", verifyUser);
 
 module.exports = authRouter;

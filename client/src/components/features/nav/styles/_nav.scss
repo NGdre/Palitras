@@ -108,3 +108,24 @@ footer {
     margin: 10px 15px;
   }
 }
+
+.notifications {
+  position: relative;
+  cursor: pointer;
+
+  &__icon {
+    color: darken(color-on("primary"), 10%);
+  }
+
+  &__badge {
+    top: -6px;
+    right: -8px;
+    display: block;
+    position: absolute;
+    color: color-on("err");
+    font-size: font-size("medium");
+    background: color("err");
+    padding: 0 5px;
+    border-radius: 50%;
+  }
+}

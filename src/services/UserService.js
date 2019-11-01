@@ -145,7 +145,6 @@ class UserService {
     for (let propName in data) {
       user[propName] = data[propName];
     }
-    console.log(user);
 
     return await this.saveUser(user);
   }

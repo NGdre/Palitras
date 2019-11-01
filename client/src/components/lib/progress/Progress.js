@@ -1,7 +1,12 @@
 import React from "react";
 
-const Progress = ({ max, value }) => {
+const Progress = ({ value, show }) => {
+  if (!value || !show) {
+    return null;
+  }
+
   const percentage = value + "%";
+
   return (
     <div className="progress-bar">
       <div style={{ width: percentage }} className="progress">

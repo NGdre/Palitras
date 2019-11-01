@@ -9,7 +9,6 @@ export default function PictureActionsContainer({
   isFavorite,
   ...props
 }) {
-  console.log("call", props);
   const { handleFavorites, isAddedInFavorites } = useFavorite(
     isFavorite,
     picture

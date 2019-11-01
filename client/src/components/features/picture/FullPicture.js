@@ -9,7 +9,6 @@ import {
   selectIsLoading
 } from "../../actions/pictureSelectors";
 
-import PictureActionsContainer from "./PictureActionsContainer";
 import { selectIsFavorite } from "../../actions/pictureSelectors";
 import PictureInfo from "./PictureInfo";
 
@@ -18,7 +17,7 @@ function FullPicture({ fetchOnePicture }) {
   const isFavorite = useSelector(selectIsFavorite);
   const IsPictureLoading = useSelector(selectIsLoading);
   const { imagePaths } = picture;
-  console.log(picture);
+
   useEffect(() => {
     fetchOnePicture();
   }, [fetchOnePicture]);
@@ -33,6 +32,8 @@ function FullPicture({ fetchOnePicture }) {
 
   const { author } = picture;
 
+  const fullSizedImagePath = imagePaths[0].path;
+
   return (
     <div className="full-picture">
       <section className="wrapper">
@@ -40,7 +41,7 @@ function FullPicture({ fetchOnePicture }) {
         <UserInfo author={author} />
       </section>
       <div className="image-wrapper">
-        <ConditionalImage src={imagePaths[0].path} />
+        <ConditionalImage src={fullSizedImagePath} />
       </div>
     </div>
   );

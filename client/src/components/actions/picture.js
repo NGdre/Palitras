@@ -4,7 +4,6 @@ import { pictureAPI } from "./api";
 import { makeActionPrefix } from "../lib/utils/";
 import { RSAA } from "redux-api-middleware";
 import axios from "axios";
-import _ from "lodash";
 
 const reducerName = "picture";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
@@ -118,11 +117,12 @@ const uploadPictureAPI = url => data => async dispatch => {
       data: formData,
       onUploadProgress: p => {
         const percentage = parseInt(Math.round((p.loaded * 100) / p.total));
-        _.throttle(dispatch(setUploadPercentage(percentage)), 1000);
+        dispatch(setUploadPercentage(percentage));
       }
     })
-    .then(data => {
-      dispatch(uploadPictureSuccess(data));
+    .then(res => {
+      console.log(res);
+      dispatch(uploadPictureSuccess(res.data));
     })
     .catch(err => {
       dispatch(uploadPictureFail(err));
