@@ -92,7 +92,7 @@ const createPicture = wrapAsync(async (req, res) => {
 });
 
 const getPictures = wrapAsync(async (req, res) => {
-  const { include, exclude, sort } = req.query;
+  const { include, exclude, sort, page, limit } = req.query;
 
   const fields = include || exclude;
   const isInclude = Boolean(include);
@@ -102,7 +102,9 @@ const getPictures = wrapAsync(async (req, res) => {
     selection: {
       fields,
       isInclude
-    }
+    },
+    page: +page,
+    limit: +limit
   });
 
   if (!pictures) {

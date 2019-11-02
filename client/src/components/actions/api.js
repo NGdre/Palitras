@@ -2,7 +2,8 @@ import { api } from "../../setupEnv";
 
 export const pictureAPI = {
   uploadPicture: `${api}/pictures`,
-  fetchPictures: `${api}/pictures?include=name,author,imagePaths&sort=favAmount`,
+  fetchPictures: page =>
+    `${api}/pictures?include=name,author,imagePaths&sort=favAmount&page=${page}&limit=10`,
   removePicture: id => `${api}/pictures/${id}`,
   fetchOnePicture: id => `${api}/pictures/${id}`,
   updatePicture: id => `${api}/pictures/${id}`,

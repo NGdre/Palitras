@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 
 const pictureSchema = new Schema(
   {
@@ -69,5 +70,6 @@ class PictureClass {
 }
 
 pictureSchema.loadClass(PictureClass);
+pictureSchema.plugin(mongoosePaginate);
 
 module.exports = model("Picture", pictureSchema);

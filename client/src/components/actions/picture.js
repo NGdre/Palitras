@@ -13,15 +13,11 @@ export const [FETCH_IMAGES_TYPES, UPLOAD_PICTURE_TYPES] = makeActionPrefix(
   ["FETCH_IMAGES"]
 );
 
-export const fetchPictures = () => ({
+export const fetchPictures = page => ({
   [RSAA]: {
-    endpoint: pictureAPI.fetchPictures,
+    endpoint: pictureAPI.fetchPictures(page),
     method: "GET",
     headers: { "Content-Type": "application/json" },
-    bailout: state => {
-      const hasPictures = !!state.picture.pictures.length;
-      return hasPictures;
-    },
     types: FETCH_IMAGES_TYPES
   }
 });
