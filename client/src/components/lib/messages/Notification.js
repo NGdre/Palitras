@@ -1,32 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
 
-const NotificationMessage = ({ message }) => {
-  if (!message) {
-    return null;
-  }
+const NotificationIcon = () => {
+  const dispatch = useDispatch();
+
+  const redirectToNotifications = () => {
+    dispatch(push("/notifications"));
+  };
 
   return (
-    <div className="notification">
-      <p className="notification-message">{message}</p>
+    <div className="notifications">
+      <i
+        className="material-icons notifications__icon"
+        onClick={redirectToNotifications}
+      >
+        notifications
+      </i>
+      <div className="notifications__badge"></div>
     </div>
   );
 };
 
-const Notification = ({ message }) => {
-  const [showNotifications, setShow] = useState(false);
-
-  function handleClick() {
-    setShow(!showNotifications);
-  }
-
-  return (
-    <>
-      <i className="material-icons notification-icon" onClick={handleClick}>
-        notifications
-      </i>
-      {showNotifications && <NotificationMessage message={message} />}
-    </>
-  );
-};
-
-export default Notification;
+export default NotificationIcon;

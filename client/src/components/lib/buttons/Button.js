@@ -6,7 +6,8 @@ function Button({
   className = "btn",
   handleClick,
   disabled = false,
-  children
+  children,
+  tooltips = false
 }) {
   const submitStyles = disabled ? `${className} disabled` : className;
 
@@ -18,6 +19,7 @@ function Button({
       disabled={disabled}
     >
       {children}
+      {tooltips && <p className="tooltips">{tooltips}</p>}
     </button>
   );
 }

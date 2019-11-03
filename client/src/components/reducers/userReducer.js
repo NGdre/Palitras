@@ -23,7 +23,11 @@ const { actionRequests, actionFails } = getActionsOfType(
 
 const initialState = {
   message: null,
-  userInfo: {},
+  userInfo: {
+    notifications: {
+      docs: []
+    }
+  },
   someUser: {},
   usersPictures: [],
   usersFavorites: [],
@@ -73,10 +77,6 @@ export const userReducer = handleActions(
         return {
           ...state,
           userInfo: payload.data,
-          notifications: {
-            ...state.notifications,
-            message
-          },
           isLoading: false
         };
       },

@@ -7,3 +7,15 @@ export const selectEditPicture = state => state.user.editPicture;
 export const selectIsLoading = state => state.user.isLoading;
 export const selectUsernameOfUser = state => state.user.someUser.username;
 export const selectEmailOfUser = state => state.user.someUser.email;
+export const selectNotifications = state =>
+  state.user.userInfo.notifications.docs;
+export const selectUnreadNotifications = state => {
+  return state.user.userInfo.notifications.docs.filter(
+    notification => notification.is_read
+  );
+};
+export const selectReadNotifications = state => {
+  return state.user.userInfo.notifications.docs.filter(
+    notification => !notification.is_read
+  );
+};

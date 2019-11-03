@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 
-const { userService } = require("../../services/");
+const { userService, notificationService } = require("../../services/");
 const createError = require("http-errors");
 const { param } = require("express-validator");
 const {
@@ -23,9 +23,18 @@ const createUser = wrapAsync(async (req, res) => {
 
     userService.createTokenFor(savedUser);
 
-    const jwtoken = jwt.sign({ _id: savedUser._id }, process.env.TOKEN_SECRET, {
+    const jwtoken = jwt.sign({ _id: savedUser.id }, process.env.TOKEN_SECRET, {
       expiresIn: "330h"
     });
+
+    await notificationService.createNotification(
+      {
+        receiver: savedUser._id,
+        title: "email verification",
+        message: "you need to verify your email"
+      },
+      savedUser
+    );
 
     res.json({
       jwtoken

@@ -66,17 +66,3 @@
 .text-disabled {
   color: darken(color-on("primary"), 20%);
 }
-
-.notification {
-  background: lighten(color("primary"), 30%);
-  margin: 15px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-
-  &-message {
-    font-size: font-size("big");
-    color: color-on("primary");
-  }
-}

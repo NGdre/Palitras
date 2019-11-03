@@ -86,10 +86,16 @@ input[type="file"] {
 }
 
 .btn-icon {
+  position: relative;
   padding: 0;
   width: 25px;
   margin: 0 5px;
   cursor: pointer;
+  color: color-on(surface);
+
+  &:hover {
+    color: darken(color-on(surface), 10%);
+  }
 }
 
 button > i {
@@ -101,4 +107,23 @@ button {
   outline: none;
   background: none;
   border: none;
+}
+
+.tooltips {
+  position: absolute;
+  top: 0;
+  left: -105px;
+  width: 100px;
+  color: color-on("primary");
+  background: color("primary");
+  border-radius: border-radius("small");
+  padding: 2px;
+  display: none;
+  opacity: 0;
+}
+
+button:hover .tooltips {
+  opacity: 1;
+  display: block;
+  transition: all 0.1s ease-in;
 }

@@ -46,6 +46,12 @@ const EditPicturePage = lazy(() =>
   import(/*webpackChunkName: "EditPicturePage"*/ "../../pages/EditPicturePage")
 );
 
+const NotificationsPage = lazy(() =>
+  import(
+    /*webpackChunkName: "NotificationsPage"*/ "../../features/notifications/NotificationsPage"
+  )
+);
+
 const SwitchRoutes = () => {
   return (
     <Suspense fallback={<div>...loading</div>}>
@@ -53,6 +59,7 @@ const SwitchRoutes = () => {
         <Route exact path="/" component={Home} />
         <Route path="/pictures/:id" component={Picture} />
         <Route path="/users/:id" component={UserProfilePage} />
+        <ProtectedRoute path="/notifications" component={NotificationsPage} />
         <ProtectedRoute exact path="/account/upload" component={AddPicture} />
         <ProtectedRoute
           exact
@@ -83,7 +90,7 @@ const SwitchRoutes = () => {
           component={ResetPassword}
           exact
         />
-        <Route path="*" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

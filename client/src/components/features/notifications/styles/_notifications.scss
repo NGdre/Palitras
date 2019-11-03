@@ -1,0 +1,106 @@
+.notifications {
+  display: flex;
+  align-items: flex-start;
+
+  @include respond(phone) {
+    flex-direction: column;
+  }
+
+  &__list {
+    border-radius: border-radius("small");
+    overflow: hidden;
+    flex: 1 0 60%;
+    background: color("surface");
+
+    &-item {
+      padding: 5px 0;
+      margin: 15px 20px;
+      font-size: font-size(big);
+      background: lighten(color("primary"), 50%);
+      transition: all 0.1s ease-in;
+    }
+
+    &-item-message {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-item-title {
+      padding-bottom: 5px;
+      padding-left: 10px;
+      border-bottom: 1px solid darken(color("surface"), 30%);
+    }
+
+    &-item-title::first-letter {
+      text-transform: uppercase;
+    }
+
+    &-item-body {
+      padding: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &-item-type {
+      margin-right: 10px;
+    }
+
+    &-item-body-right {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    &-item-date,
+    button {
+      margin: 0 20px;
+    }
+  }
+}
+
+.notification-page {
+  h3 {
+    margin: 20px 0;
+  }
+}
+
+.sidebar {
+  flex: 1 0 20%;
+  margin-right: 30px;
+  background: lighten(color("primary"), 50%);
+
+  @include respond(phone) {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    font-size: font-size("big");
+    padding: 5px 10px;
+    transition: all 0.1s ease-in;
+    cursor: pointer;
+    border-right: 1px solid darken(color("surface"), 15%);
+    border-left: 1px solid darken(color("surface"), 15%);
+
+    @include respond(phone) {
+      width: 100px;
+    }
+
+    &-amount {
+      font-weight: 600;
+    }
+
+    &:hover {
+      background: darken(color("surface"), 15%);
+    }
+
+    &_current {
+      background: darken(color("surface"), 30%);
+      color: color("surface");
+    }
+  }
+}

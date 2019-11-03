@@ -26,9 +26,12 @@ function Home() {
 
   const defaultPage = +qs.parse(search.slice(1)).page;
 
-  const fetchPage = React.useCallback(page => {
-    dispatch(fetchPictures(page));
-  }, []);
+  const fetchPage = React.useCallback(
+    page => {
+      dispatch(fetchPictures(page));
+    },
+    [dispatch]
+  );
 
   return (
     <>

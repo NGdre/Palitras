@@ -32,6 +32,18 @@ const userSchema = new Schema(
         ref: "Picture"
       }
     ],
+    notifications: {
+      amount: {
+        type: Number,
+        default: 0
+      },
+      docs: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Notification"
+        }
+      ]
+    },
     gender: String,
     firstname: String,
     lastname: String,
@@ -103,6 +115,13 @@ class UserClass {
       return true;
     }
     return false;
+  }
+
+  async addNotification(notificationId) {
+    this.notifications.docs.push(notificationId);
+    this.notifications.amount++;
+    await this.save();
+    return true;
   }
 }
 

@@ -111,10 +111,10 @@ footer {
 
 .notifications {
   position: relative;
-  cursor: pointer;
 
   &__icon {
     color: darken(color-on("primary"), 10%);
+    cursor: pointer;
   }
 
   &__badge {

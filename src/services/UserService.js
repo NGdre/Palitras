@@ -102,9 +102,11 @@ class UserService {
   }
 
   async getUserInfo(id) {
-    return await this.User.findById(id).select(
-      "isVerified  email username pictures amountOfPictures avatar favorites"
-    );
+    return await this.User.findById(id)
+      .select(
+        "isVerified notifications email username pictures amountOfPictures avatar favorites"
+      )
+      .populate({ path: "notifications.docs" });
   }
 
   async getUser(id) {

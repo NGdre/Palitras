@@ -8,7 +8,7 @@ function UserInfo({ author }) {
   const { redirectTo, renderRedirect } = useRedirect();
 
   const redirectToProfile = () => {
-    redirectTo(`/users/${userId}/?tab=latest`);
+    redirectTo(`/users/${author._id || userId}/?tab=latest`);
   };
 
   return (

@@ -1,30 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { useDispatch } from "react-redux";
 import DropdownContainer from "./DropdownContainer";
 import PropTypes from "prop-types";
-
-const NotificationIcon = () => {
-  const dispatch = useDispatch();
-
-  const redirectToNotifications = () => {
-    dispatch(push("/notifications"));
-  };
-
-  return (
-    <div className="notifications">
-      <i
-        className="material-icons notifications__icon"
-        onClick={redirectToNotifications}
-      >
-        notifications
-      </i>
-      <div className="notifications__badge"></div>
-    </div>
-  );
-};
+import NotificationIcon from "../../lib/messages/Notification";
 
 function NavItems(props) {
   const { isLogged } = props;
