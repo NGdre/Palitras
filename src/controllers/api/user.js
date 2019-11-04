@@ -3,7 +3,11 @@ const userRouter = express.Router();
 const createError = require("http-errors");
 const { param } = require("express-validator");
 
-const { userService, pictureService } = require("../../services");
+const {
+  userService,
+  pictureService,
+  notificationService
+} = require("../../services");
 
 const {
   verify,
@@ -75,6 +79,14 @@ const removePictureFromFavorites = wrapAsync(async (req, res) => {
   res.status(200).json({ message: "picture were removed from favorites!" });
 });
 
+const getNotifications = wrapAsync(async (req, res) => {
+  const { user } = res.locals;
+
+  const notifications = await notificationService.findById(user._id);
+
+  res.json(notifications[0]);
+});
+
 userRouter.use(["/me"], verify);
 userRouter.use(["/me"], findUser.byId);
 
@@ -91,6 +103,8 @@ userRouter.get("/", getUsers);
 userRouter.get("/me", getMyUser);
 
 userRouter.get("/me/favorites", getMyFavorites);
+
+userRouter.get("/me/notifications", getNotifications);
 
 userRouter.get("/me/pictures", getMyPictures);
 

@@ -1,21 +1,31 @@
 import React from "react";
 import NotificationsSidebar from "./NotificationsSidebar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 
+import {
+  selectNotificationsAmount,
+  selectUnreadNotificationsAmount,
+  selectReadNotificationsAmount
+} from "./notificationsSelector";
+
 const NotificationsSidebarContainer = ({ show }: { show: string }) => {
+  const amount = useSelector(selectNotificationsAmount);
+  const readAmount = useSelector(selectReadNotificationsAmount);
+  const unreadAmount = useSelector(selectUnreadNotificationsAmount);
+
   const notificationsTabs = [
     {
       type: "unread",
-      notificationsAmount: 2
+      notificationsAmount: unreadAmount
     },
     {
       type: "read",
-      notificationsAmount: 1
+      notificationsAmount: readAmount
     },
     {
       type: "all",
-      notificationsAmount: 3
+      notificationsAmount: amount
     }
   ];
 

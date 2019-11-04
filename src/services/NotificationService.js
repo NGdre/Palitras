@@ -11,8 +11,45 @@ class NotificationService {
     return notification;
   }
 
-  async findById(id) {
-    return await this.Notification.findById(id);
+  async findById(userId) {
+    return await this.Notification.aggregate([
+      {
+        $match: {
+          receiver: userId
+        }
+      },
+      {
+        $group: {
+          _id: "$receiver",
+          notifications: { $push: "$$ROOT" }
+        }
+      },
+      {
+        $addFields: {
+          amount: { $size: "$notifications" },
+          read: {
+            $filter: {
+              input: "$notifications",
+              as: "notification",
+              cond: { $eq: ["$$notification.is_read", "true"] }
+            }
+          },
+          unread: {
+            $filter: {
+              input: "$notifications",
+              as: "notification",
+              cond: { $eq: ["$$notification.is_read", "false"] }
+            }
+          }
+        }
+      },
+      {
+        $addFields: {
+          readAmount: { $size: "$read" },
+          unreadAmount: { $size: "$unread" }
+        }
+      }
+    ]);
   }
 }
 

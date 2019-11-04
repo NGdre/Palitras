@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonIcon from "../../lib/buttons/ButtonIcon";
+import TimeAgo from "react-timeago";
 
 interface Notification {
   title: string;
@@ -25,7 +26,9 @@ const NotificationsListItem: React.FC<Notification> = ({
         )}
         <p className="notifications__list-item-message">{message}</p>
         <div className="notifications__list-item-body-right">
-          <p className="notifications__list-item-date">{createdAt}</p>
+          <div className="notifications__list-item-date">
+            <TimeAgo date={createdAt}></TimeAgo>
+          </div>
           <ButtonIcon iconName="markunread" tooltips="Mark as unread" />
         </div>
       </div>

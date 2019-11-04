@@ -1,9 +1,10 @@
 import React from "react";
 import { push } from "connected-react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const NotificationIcon = () => {
   const dispatch = useDispatch();
+  const unreadAmount = useSelector(state => state.notifications.unreadAmount);
 
   const redirectToNotifications = () => {
     dispatch(push("/notifications"));
@@ -17,7 +18,9 @@ const NotificationIcon = () => {
       >
         notifications
       </i>
-      <div className="notifications__badge"></div>
+      {unreadAmount && (
+        <div className="notifications__badge">{unreadAmount}</div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Notifications from "./Notifications";
+import { getUsersNotifications } from "./notificationsActions";
 
 const NotificationsPage = () => {
   interface Pathname {
@@ -28,6 +29,12 @@ const NotificationsPage = () => {
         setNotificationType("unread");
     }
   }, [pathname]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsersNotifications());
+  }, [dispatch]);
 
   return (
     <>

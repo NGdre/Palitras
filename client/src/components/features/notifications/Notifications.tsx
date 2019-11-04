@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import NotificationsListItem from "./NotificationsListItem";
 import NotificationsSidebarContainer from "./NotificationsSidebarContainer";
 
-import {
-  selectNotifications,
-  selectUnreadNotifications,
-  selectReadNotifications
-} from "../../actions/userSelectors";
 import { useSelector } from "react-redux";
+import {
+  selectAllNotifications,
+  selectReadNotifications,
+  selectUnreadNotifications
+} from "./notificationsSelector";
 
 interface Notification {
   title: string;
@@ -17,7 +17,7 @@ interface Notification {
 }
 
 const Notifications = ({ show }: { show: string }) => {
-  const allNotifications = useSelector(selectNotifications);
+  const allNotifications = useSelector(selectAllNotifications);
   const unreadNotifications = useSelector(selectUnreadNotifications);
   const readNotifications = useSelector(selectReadNotifications);
 
@@ -30,6 +30,7 @@ const Notifications = ({ show }: { show: string }) => {
         break;
       case "all":
         setNotifications(allNotifications);
+        break;
       default:
         setNotifications(unreadNotifications);
         break;

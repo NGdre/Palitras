@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { userReducer } from "./userReducer";
 import { authReducer } from "./authReducer";
 import { pictureReducer } from "./pictureReducer";
+import { notificationsReducer } from "../features/notifications/notificationsReducer";
 import { connectRouter } from "connected-react-router";
 
 const createRootReducer = history =>
@@ -9,7 +10,8 @@ const createRootReducer = history =>
     router: connectRouter(history),
     user: userReducer,
     auth: authReducer,
-    picture: pictureReducer
+    picture: pictureReducer,
+    notifications: notificationsReducer
   });
 
 export default createRootReducer;

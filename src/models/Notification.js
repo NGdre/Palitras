@@ -11,6 +11,10 @@ const notificationSchema = new Schema(
       type: String,
       default: false
     },
+    is_secure: {
+      type: String,
+      default: false
+    },
     message: {
       type: String,
       required: true

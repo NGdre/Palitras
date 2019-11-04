@@ -23,19 +23,12 @@ const { actionRequests, actionFails } = getActionsOfType(
 
 const initialState = {
   message: null,
-  userInfo: {
-    notifications: {
-      docs: []
-    }
-  },
+  userInfo: {},
   someUser: {},
   usersPictures: [],
   usersFavorites: [],
   myPictures: [],
-  editPicture: {},
-  notifications: {
-    message: null
-  }
+  editPicture: {}
 };
 
 export const userReducer = handleActions(
@@ -70,10 +63,6 @@ export const userReducer = handleActions(
 
     user: {
       FETCH_INFO_SUCCESS: (state, { payload }) => {
-        const message = !payload.data.isVerified
-          ? "you should verify your email"
-          : null;
-
         return {
           ...state,
           userInfo: payload.data,
