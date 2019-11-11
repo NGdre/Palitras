@@ -6,11 +6,22 @@
     flex-direction: column;
   }
 
+  &__empty {
+    text-align: center;
+  }
+
   &__list {
     border-radius: border-radius("small");
     overflow: hidden;
     flex: 1 0 60%;
     background: color("surface");
+
+    &_empty {
+      display: flex;
+      justify-content: center;
+      flex: 1 0 60%;
+      background: none;
+    }
 
     &-item {
       padding: 5px 0;

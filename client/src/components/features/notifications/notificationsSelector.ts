@@ -8,6 +8,8 @@ interface NotificationsSelector {
     amount: number;
     readAmount: number;
     unreadAmount: number;
+    message: string;
+    isLoading: boolean;
   };
 }
 
@@ -28,3 +30,10 @@ export const selectUnreadNotificationsAmount = (state: NotificationsSelector) =>
 
 export const selectReadNotificationsAmount = (state: NotificationsSelector) =>
   state.notifications.readAmount;
+
+export const selectNotificationsLoading = (state: NotificationsSelector) =>
+  state.notifications.isLoading;
+
+export const selectNotificationsResponseMessage = (
+  state: NotificationsSelector
+) => state.notifications.message;

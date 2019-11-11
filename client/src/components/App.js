@@ -11,8 +11,9 @@ import { fetchUserInfo } from "./actions/user";
 import { clearCurrentPicture } from "./actions/picture";
 import useOnLeaveRoute from "./lib/hooks/useOnLeaveRoute";
 import SwitchRoutes from "./lib/routes/SwitchRoutes";
-import SnackBar from "./lib/messages/SnackBar";
+import SnackBar from "./features/snackbar/SnackBar";
 import Footer from "./features/nav/Footer";
+import NewSnackBar from "./features/snackbar/NewSnackBar";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App(props) {
         <SwitchRoutes />
       </main>
       <SnackBar />
+      <NewSnackBar />
       <Footer />
     </>
   );

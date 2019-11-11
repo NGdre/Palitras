@@ -9,11 +9,15 @@ import {
   selectUnreadNotifications
 } from "./notificationsSelector";
 
+import { useTrail, animated } from "react-spring";
+
 interface Notification {
   title: string;
   message: string;
   createdAt: string;
   isSecure: boolean;
+  isRead: boolean;
+  _id: string;
 }
 
 const Notifications = ({ show }: { show: string }) => {
@@ -22,6 +26,13 @@ const Notifications = ({ show }: { show: string }) => {
   const readNotifications = useSelector(selectReadNotifications);
 
   const [notifications, setNotifications] = useState(unreadNotifications);
+
+  const trail = useTrail(notifications.length, {
+    config: { tension: 185, friction: 25 },
+    opacity: 1,
+    transform: "translateX(0)",
+    from: { opacity: 0, transform: "translateX(-100px)" }
+  });
 
   useEffect(() => {
     switch (show) {
@@ -37,19 +48,42 @@ const Notifications = ({ show }: { show: string }) => {
     }
   }, [show, allNotifications, unreadNotifications, readNotifications]);
 
+  const notificationsListClassName = notifications.length
+    ? "notifications__list"
+    : "notifications__list_empty";
+
   return (
     <div className="notifications">
       <NotificationsSidebarContainer show={show} />
-      <ul className="notifications__list">
-        {notifications.map(({ title, createdAt, message }: Notification) => {
+
+      <ul className={notificationsListClassName}>
+        {!notifications.length && (
+          <div className="notifications__empty">
+            <i className="material-icons">notifications</i>
+            <h5>No new notifications</h5>
+          </div>
+        )}
+
+        {trail.map((props, index) => {
+          const {
+            isRead,
+            title,
+            createdAt,
+            isSecure,
+            message,
+            _id
+          }: Notification = notifications[index];
           return (
-            <NotificationsListItem
-              title={title}
-              createdAt={createdAt}
-              message={message}
-              isSecure={true}
-              key={createdAt}
-            />
+            <animated.div key={index} style={props}>
+              <NotificationsListItem
+                id={_id}
+                title={title}
+                createdAt={createdAt}
+                message={message}
+                isSecure={isSecure}
+                isRead={isRead}
+              />
+            </animated.div>
           );
         })}
       </ul>

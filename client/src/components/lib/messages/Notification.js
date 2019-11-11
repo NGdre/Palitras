@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const NotificationIcon = () => {
   const dispatch = useDispatch();
-  const unreadAmount = useSelector(state => state.notifications.unreadAmount);
+  const unreadAmount = useSelector(
+    state => state.user.userInfo.unreadNotificationsAmount
+  );
 
   const redirectToNotifications = () => {
     dispatch(push("/notifications"));

@@ -13,7 +13,8 @@ const {
   verify,
   wrapAsync,
   findUser,
-  hasValidationErr
+  hasValidationErr,
+  isOwnNotification
 } = require("../../middlewares");
 
 const getUsers = async (req, res) => {
@@ -82,9 +83,47 @@ const removePictureFromFavorites = wrapAsync(async (req, res) => {
 const getNotifications = wrapAsync(async (req, res) => {
   const { user } = res.locals;
 
-  const notifications = await notificationService.findById(user._id);
+  const notifications = await notificationService.findByUserId(user._id);
+
+  if (!notifications.length) {
+    throw createError(404, "there's no notifications");
+  }
 
   res.json(notifications[0]);
+});
+
+const markUnread = wrapAsync(async (req, res) => {
+  const { user, notification } = res.locals;
+
+  const result = await notificationService.markAs("unread", notification, user);
+
+  if (!result) {
+    throw createError(400, {
+      message: "can't mark as unread"
+    });
+  }
+
+  res.json({
+    notification: result,
+    message: "notification was marked as unread"
+  });
+});
+
+const markRead = wrapAsync(async (req, res) => {
+  const { user, notification } = res.locals;
+
+  const result = await notificationService.markAs("read", notification, user);
+
+  if (!result) {
+    throw createError(400, {
+      message: "can't mark as read"
+    });
+  }
+
+  res.json({
+    notification: result,
+    message: "notification was marked as read"
+  });
 });
 
 userRouter.use(["/me"], verify);
@@ -105,6 +144,18 @@ userRouter.get("/me", getMyUser);
 userRouter.get("/me/favorites", getMyFavorites);
 
 userRouter.get("/me/notifications", getNotifications);
+
+userRouter.patch(
+  "/me/notifications/:notificationId/mark/unread",
+  isOwnNotification,
+  markUnread
+);
+
+userRouter.patch(
+  "/me/notifications/:notificationId/mark/read",
+  isOwnNotification,
+  markRead
+);
 
 userRouter.get("/me/pictures", getMyPictures);
 

@@ -7,12 +7,12 @@ const notificationSchema = new Schema(
       required: true,
       ref: "User"
     },
-    is_read: {
-      type: String,
+    isRead: {
+      type: Boolean,
       default: false
     },
-    is_secure: {
-      type: String,
+    isSecure: {
+      type: Boolean,
       default: false
     },
     message: {
@@ -28,5 +28,29 @@ const notificationSchema = new Schema(
     timestamps: true
   }
 );
+
+class NotificationClass {
+  async markAsUnread(isRead) {
+    if (!isRead) {
+      return false;
+    }
+
+    this.isRead = false;
+    await this.save();
+    return this;
+  }
+
+  async markAsRead(isRead) {
+    if (isRead) {
+      return false;
+    }
+
+    this.isRead = true;
+    await this.save();
+    return this;
+  }
+}
+
+notificationSchema.loadClass(NotificationClass);
 
 module.exports = model("Notification", notificationSchema);

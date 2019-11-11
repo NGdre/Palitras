@@ -23,7 +23,9 @@ const { actionRequests, actionFails } = getActionsOfType(
 
 const initialState = {
   message: null,
-  userInfo: {},
+  userInfo: {
+    unreadNotificationsAmount: 0
+  },
   someUser: {},
   usersPictures: [],
   usersFavorites: [],
@@ -123,6 +125,24 @@ export const userReducer = handleActions(
       SET_EDIT_PICTURE: (state, { payload }) => ({
         ...state,
         editPicture: state.myPictures.find(x => x._id === payload.pictureId)
+      }),
+
+      INCREMENT_UNREAD_AMOUNT: state => ({
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          unreadNotificationsAmount:
+            state.userInfo.unreadNotificationsAmount + 1
+        }
+      }),
+
+      DECREMENT_UNREAD_AMOUNT: state => ({
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          unreadNotificationsAmount:
+            state.userInfo.unreadNotificationsAmount - 1
+        }
       })
     }
   },

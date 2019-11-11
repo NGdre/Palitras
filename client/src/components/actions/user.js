@@ -77,6 +77,14 @@ export const setEditPicture = createAction(
   pictureId => ({ pictureId })
 );
 
+export const incrementUnreadAmount = createAction(
+  `${reducerName}/INCREMENT_UNREAD_AMOUNT`
+);
+
+export const decrementUnreadAmount = createAction(
+  `${reducerName}/DECREMENT_UNREAD_AMOUNT`
+);
+
 const userFetchDataAPI = url => () => async dispatch =>
   createDispatchAPIFlow(url, dispatch, fetchInfoActionCreators);
 

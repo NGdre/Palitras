@@ -117,7 +117,6 @@ const uploadPictureAPI = url => data => async dispatch => {
       }
     })
     .then(res => {
-      console.log(res);
       dispatch(uploadPictureSuccess(res.data));
     })
     .catch(err => {

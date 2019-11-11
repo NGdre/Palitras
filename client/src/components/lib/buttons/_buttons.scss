@@ -96,6 +96,10 @@ input[type="file"] {
   &:hover {
     color: darken(color-on(surface), 10%);
   }
+
+  &:focus {
+    color: darken(color-on(surface), 30%);
+  }
 }
 
 button > i {

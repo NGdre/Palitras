@@ -26,6 +26,7 @@ const NotificationsSidebar: React.FC<NotificationsSidebar> = ({
                 : "sidebar__item"
             }
             onClick={handleClick(tab.type)}
+            key={tab.type}
           >
             {tab.type}
             <p className="sidebar__item-amount">{tab.notificationsAmount}</p>

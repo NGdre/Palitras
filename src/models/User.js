@@ -32,17 +32,9 @@ const userSchema = new Schema(
         ref: "Picture"
       }
     ],
-    notifications: {
-      amount: {
-        type: Number,
-        default: 0
-      },
-      docs: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Notification"
-        }
-      ]
+    unreadNotificationsAmount: {
+      type: Number,
+      default: 0
     },
     gender: String,
     firstname: String,
@@ -117,11 +109,10 @@ class UserClass {
     return false;
   }
 
-  async addNotification(notificationId) {
-    this.notifications.docs.push(notificationId);
-    this.notifications.amount++;
+  async setUnreadNotificationsAmount(amount) {
+    this.unreadNotificationsAmount = amount;
     await this.save();
-    return true;
+    return this;
   }
 }
 

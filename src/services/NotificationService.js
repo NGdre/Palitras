@@ -6,12 +6,39 @@ class NotificationService {
 
   async createNotification(data, user) {
     const notification = await this.Notification.create(data);
-    console.log(notification);
-    await user.addNotification(notification._id);
+
+    await user.setUnreadNotificationsAmount(user.unreadNotificationsAmount + 1);
     return notification;
   }
 
-  async findById(userId) {
+  async markAs(readType, notification, user) {
+    const { isRead } = notification;
+
+    let updatedNotification;
+
+    if (readType === "read") {
+      updatedNotification = await notification.markAsRead(isRead);
+    } else if (readType === "unread") {
+      updatedNotification = await notification.markAsUnread(isRead);
+    }
+
+    const amountAction =
+      readType === "read"
+        ? user.unreadNotificationsAmount - 1
+        : user.unreadNotificationsAmount + 1;
+
+    const isUserUpdated =
+      updatedNotification &&
+      (await user.setUnreadNotificationsAmount(amountAction));
+
+    return isUserUpdated && updatedNotification;
+  }
+
+  async findById(notificationId) {
+    return await this.Notification.findById(notificationId);
+  }
+
+  async findByUserId(userId) {
     return await this.Notification.aggregate([
       {
         $match: {
@@ -31,14 +58,14 @@ class NotificationService {
             $filter: {
               input: "$notifications",
               as: "notification",
-              cond: { $eq: ["$$notification.is_read", "true"] }
+              cond: { $eq: ["$$notification.isRead", true] }
             }
           },
           unread: {
             $filter: {
               input: "$notifications",
               as: "notification",
-              cond: { $eq: ["$$notification.is_read", "false"] }
+              cond: { $eq: ["$$notification.isRead", false] }
             }
           }
         }
