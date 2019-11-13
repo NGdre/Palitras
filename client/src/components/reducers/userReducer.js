@@ -27,7 +27,11 @@ const initialState = {
     unreadNotificationsAmount: 0
   },
   someUser: {},
-  usersPictures: [],
+  usersPictures: {
+    docs: [],
+    pages: 0,
+    total: 0
+  },
   usersFavorites: [],
   myPictures: [],
   editPicture: {}

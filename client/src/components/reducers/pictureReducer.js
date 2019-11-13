@@ -16,7 +16,11 @@ const initialState = {
     text: null,
     snackBar: false
   },
-  pictures: [],
+  pictures: {
+    docs: [],
+    pages: 0,
+    total: 0
+  },
   currentPicture: {},
   favorites: [],
   uploadPercentage: null

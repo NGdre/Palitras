@@ -11,13 +11,17 @@ interface Props {
   defaultPage: number;
   totalPages: number;
   totalImages: number;
+  pathname: string;
+  search?: string;
 }
 
 const Pagination: React.FC<Props> = ({
   fetchPage,
   defaultPage,
   totalPages,
-  totalImages
+  totalImages,
+  pathname,
+  search
 }) => {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
@@ -29,12 +33,18 @@ const Pagination: React.FC<Props> = ({
   const [currentPage, setCurrentPage] = useState(defaultPage || 1);
 
   useEffect(() => {
+    const resource = search
+      ? `${pathname}${search}${currentPage}`
+      : `${pathname}?page=${currentPage}`;
+
     if (currentPage === 1) {
+      dispatch(push(resource));
       return fetchPage(1);
     }
-    dispatch(push(`/?page=${currentPage}`));
+
+    dispatch(push(resource));
     fetchPage(currentPage);
-  }, [currentPage, dispatch, fetchPage]);
+  }, [currentPage, dispatch, search, pathname, fetchPage]);
 
   const handlePage = (changeType: string) => () => {
     if (changeType !== "increment" && changeType !== "decrement") {

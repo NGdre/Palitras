@@ -5,8 +5,9 @@ const createError = require("http-errors");
 const emailService = require("./EmailService");
 
 class UserService {
-  constructor(User, Token) {
+  constructor(User, Token, Notification) {
     this.User = User;
+    this.Notification = Notification;
     this.Token = Token;
   }
 
@@ -102,12 +103,27 @@ class UserService {
   }
 
   async getUserInfo(id) {
-    return await this.User.findById(id).select({
-      createdAt: 0,
-      __v: 0,
-      updatedAt: 0,
-      hash: 0
-    });
+    const user = await this.User.findById(id)
+      .select({
+        createdAt: 0,
+        __v: 0,
+        updatedAt: 0,
+        hash: 0
+      })
+      .lean();
+
+    const amount = await this.getUnreadNotificationsAmount(user._id);
+
+    user.unreadNotificationsAmount = amount;
+
+    return user;
+  }
+
+  async getUnreadNotificationsAmount(userId) {
+    return await this.Notification.find({
+      receiver: userId,
+      isRead: false
+    }).countDocuments();
   }
 
   async getUser(id) {

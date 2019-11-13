@@ -49,6 +49,7 @@ function Home() {
           defaultPage={defaultPage}
           totalPages={picturesTotalPages}
           totalImages={picturesTotalImages}
+          pathname="/"
         />
       </div>
     </>

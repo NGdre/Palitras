@@ -35,7 +35,9 @@ const Favorites = lazy(() =>
 );
 
 const UserProfilePage = lazy(() =>
-  import(/*webpackChunkName: "UserProfilePage"*/ "../../pages/UserProfilePage")
+  import(
+    /*webpackChunkName: "UserProfilePage"*/ "../../features/user/UserProfilePage"
+  )
 );
 
 const MyPictures = lazy(() =>

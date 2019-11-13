@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import {
   selectEmailOfUser,
   selectUsernameOfUser
-} from "../actions/userSelectors";
-import UserProfile from "../features/user/UserProfile";
+} from "../../actions/userSelectors";
+import UserProfile from "./UserProfile";
 
 const UserProfilePage = () => {
   const username = useSelector(selectUsernameOfUser);

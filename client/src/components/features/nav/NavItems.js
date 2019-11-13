@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import DropdownContainer from "./DropdownContainer";
 import PropTypes from "prop-types";
-import NotificationIcon from "../../lib/messages/Notification";
+import NotificationIcon from "../notifications/NotificationIcon";
 
 function NavItems(props) {
   const { isLogged } = props;

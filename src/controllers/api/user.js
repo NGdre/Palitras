@@ -93,9 +93,9 @@ const getNotifications = wrapAsync(async (req, res) => {
 });
 
 const markUnread = wrapAsync(async (req, res) => {
-  const { user, notification } = res.locals;
+  const { notification } = res.locals;
 
-  const result = await notificationService.markAs("unread", notification, user);
+  const result = await notificationService.markAs("unread", notification);
 
   if (!result) {
     throw createError(400, {
@@ -110,9 +110,9 @@ const markUnread = wrapAsync(async (req, res) => {
 });
 
 const markRead = wrapAsync(async (req, res) => {
-  const { user, notification } = res.locals;
+  const { notification } = res.locals;
 
-  const result = await notificationService.markAs("read", notification, user);
+  const result = await notificationService.markAs("read", notification);
 
   if (!result) {
     throw createError(400, {

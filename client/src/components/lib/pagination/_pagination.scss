@@ -58,7 +58,7 @@
 
   &__next:hover,
   &__prev:hover {
-    background: white;
+    background: white !important;
     transition: all 0.2s ease;
   }
 }

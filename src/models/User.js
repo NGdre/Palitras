@@ -108,12 +108,6 @@ class UserClass {
     }
     return false;
   }
-
-  async setUnreadNotificationsAmount(amount) {
-    this.unreadNotificationsAmount = amount;
-    await this.save();
-    return this;
-  }
 }
 
 userSchema.loadClass(UserClass);

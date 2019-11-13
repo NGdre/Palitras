@@ -7,20 +7,16 @@ import { userAPI } from "./api";
 const reducerName = "user";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
 
-export const [USERS_PICTURES_TYPES, USERS_FAVORITES_TYPES] = makeActionPrefix(
-  reducerName,
-  ["USERS_PICTURES", "USERS_FAVORITES"]
-);
+export const [
+  USERS_PICTURES_TYPES,
+  USERS_FAVORITES_TYPES
+] = makeActionPrefix(reducerName, ["USERS_PICTURES", "USERS_FAVORITES"]);
 
-export const getUsersPictures = userId => ({
+export const getUsersPictures = (userId, page) => ({
   [RSAA]: {
-    endpoint: `/api/pictures?author=${userId}?sort=createdAt`,
+    endpoint: `/api/pictures?author=${userId}&sort=createdAt&page=${page}&limit=10`,
     method: "GET",
     headers: { "Content-Type": "application/json" },
-    bailout: state => {
-      const hasPictures = !!state.user.usersPictures.length;
-      return hasPictures;
-    },
     types: USERS_PICTURES_TYPES
   }
 });
@@ -91,8 +87,12 @@ const userFetchDataAPI = url => () => async dispatch =>
 const fetchMyPicturesAPI = url => () => async dispatch =>
   createDispatchAPIFlow(url, dispatch, fetchMyPicturesActionCreators);
 
-const userFetchProfileAPI = url => id => async dispatch =>
-  createDispatchAPIFlow(url(id), dispatch, fetchUserProfileActionCreators);
+const userFetchProfileAPI = url => (id, page) => async dispatch =>
+  createDispatchAPIFlow(
+    url(id, page),
+    dispatch,
+    fetchUserProfileActionCreators
+  );
 
 //fetchMyUserInfo
 export const fetchUserInfo = userFetchDataAPI(userAPI.fetchUserInfo);

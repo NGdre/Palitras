@@ -4,34 +4,24 @@ class NotificationService {
     this.User = User;
   }
 
-  async createNotification(data, user) {
-    const notification = await this.Notification.create(data);
-
-    await user.setUnreadNotificationsAmount(user.unreadNotificationsAmount + 1);
-    return notification;
+  async createNotification(data) {
+    return await this.Notification.create(data);
   }
 
-  async markAs(readType, notification, user) {
+  async markAs(readType, notification) {
     const { isRead } = notification;
 
-    let updatedNotification;
+    const updatedNotification = new Promise((resolve, reject) => {
+      if (readType === "read") {
+        notification.markAsRead(isRead).then(res => resolve(res));
+      } else if (readType === "unread") {
+        notification.markAsUnread(isRead).then(res => resolve(res));
+      } else {
+        reject("there's no such method");
+      }
+    });
 
-    if (readType === "read") {
-      updatedNotification = await notification.markAsRead(isRead);
-    } else if (readType === "unread") {
-      updatedNotification = await notification.markAsUnread(isRead);
-    }
-
-    const amountAction =
-      readType === "read"
-        ? user.unreadNotificationsAmount - 1
-        : user.unreadNotificationsAmount + 1;
-
-    const isUserUpdated =
-      updatedNotification &&
-      (await user.setUnreadNotificationsAmount(amountAction));
-
-    return isUserUpdated && updatedNotification;
+    return await updatedNotification;
   }
 
   async findById(notificationId) {

@@ -1,23 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import qs from "qs";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getUsersPictures, getUsersFavorites } from "../../actions/user";
 
-const Tabs = ({ id, paths }) => {
-  const dispatch = useDispatch();
-  const [currentTab, setCurrentTab] = useState();
-
-  useEffect(() => {
-    switch (currentTab) {
-      case "favorites":
-        dispatch(getUsersFavorites(id));
-        break;
-      default:
-        dispatch(getUsersPictures(id));
-    }
-  }, [currentTab, id, dispatch]);
-
+const Tabs = ({ pathname, paths }) => {
   return (
     <div className="tabs">
       <ul>
@@ -26,14 +11,14 @@ const Tabs = ({ id, paths }) => {
             <li key={path}>
               <NavLink
                 to={{
-                  pathname: `/users/${id}/`,
+                  pathname,
                   search: `tab=${path}`
                 }}
                 className="unselected"
                 activeClassName="selected"
                 isActive={(match, location) => {
                   const queries = qs.parse(location.search.slice(1));
-                  setCurrentTab(queries.tab);
+
                   if (queries.tab === path) return true;
                 }}
               >
