@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PictureForm from "./PictureForm";
-import useValidation from "../../lib/hooks/useValidation";
-import useFileHandler from "../../lib/hooks/useFileHandler";
-import validatePicture from "../../lib/utils/validatePicture";
+import useValidation from "../../hooks/useValidation";
+import useFileHandler from "../../hooks/useFileHandler";
+import validatePicture from "../../utils/validatePicture";
 import { selectIsLoading } from "../../actions/pictureSelectors";
 import { uploadPicture } from "../../actions/picture";
 

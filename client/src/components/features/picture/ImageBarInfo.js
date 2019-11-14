@@ -1,5 +1,5 @@
 import React from "react";
-import useRedirect from "../../lib/hooks/useRedirect";
+import useRedirect from "../../hooks/useRedirect";
 
 const ImageBarInfo = ({ picture, author }) => {
   const { redirectTo, renderRedirect } = useRedirect();
@@ -16,7 +16,7 @@ const ImageBarInfo = ({ picture, author }) => {
         <p className="author-name-wrapper">
           author:{" "}
           <i className="author-name" onClick={redirectToUserProfile}>
-            {author.username}
+            {author.username || author.email}
           </i>
         </p>
       </div>

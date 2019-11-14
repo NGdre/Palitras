@@ -3,7 +3,6 @@
   grid-gap: rem(15);
   columns: 4;
   padding: 10px;
-  justify-items: center;
 
   @include respond(laptop) {
     columns: 3;
@@ -22,8 +21,6 @@
   }
 
   .image-item {
-    width: 100%;
-    height: 100%;
     margin: 0 0 15px;
     position: relative;
     overflow: hidden;

@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Helmet } from "react-helmet";
 import qs from "qs";
-import { fetchPictures } from "../actions/picture";
+import { fetchPictures } from "../../actions/picture";
 import {
   selectFavoritesId,
   selectPictures,
   selectPicturesTotalPages,
   selectPicturesTotalImages
-} from "../actions/pictureSelectors";
+} from "../../actions/pictureSelectors";
 
-import PictureListContainer from "../features/picture/PictureListContainer";
-import Pagination from "../lib/pagination/Pagination";
+import PictureListContainer from "../picture/PictureListContainer";
+import Pagination from "../../pagination/Pagination";
 
 function Home() {
   const dispatch = useDispatch();
@@ -33,6 +33,11 @@ function Home() {
     [dispatch]
   );
 
+  const isFavorite = React.useCallback(
+    picture => favoritesId.indexOf(picture._id) > -1,
+    [favoritesId]
+  );
+
   return (
     <>
       <Helmet>
@@ -41,15 +46,14 @@ function Home() {
       <div className="container">
         <PictureListContainer
           pictures={pictures}
-          favorites={favoritesId}
           from="picture"
+          isFavorite={isFavorite}
         />
         <Pagination
           fetchPage={fetchPage}
           defaultPage={defaultPage}
           totalPages={picturesTotalPages}
           totalImages={picturesTotalImages}
-          pathname="/"
         />
       </div>
     </>

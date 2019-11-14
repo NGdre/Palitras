@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Button from "../Button.js";
+import Button from "../Button.js.js";
 
 describe("Button", () => {
   const mockHandleClick = jest.fn();

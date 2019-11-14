@@ -49,17 +49,16 @@ class PictureService {
     return await this.Picture.findById(id).exec();
   }
 
-  async getPictures({ sort, selection, page = 1, limit = 10 }) {
-    return await this.Picture.paginate(
-      {},
-      {
-        page,
-        limit,
-        sort,
-        select: getFields(selection),
-        populate: { path: "author", select: "username email" }
-      }
-    );
+  async getPictures({ sort, selection, page = 1, limit = 10, author }) {
+    const match = author ? { author } : {};
+
+    return await this.Picture.paginate(match, {
+      page,
+      limit,
+      sort,
+      select: getFields(selection),
+      populate: { path: "author", select: "username email" }
+    });
   }
 
   async getFavorites({ sort, selection, userId }) {

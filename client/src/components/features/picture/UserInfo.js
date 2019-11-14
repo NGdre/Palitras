@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import useRedirect from "../../lib/hooks/useRedirect";
+import useRedirect from "../../hooks/useRedirect";
 // import Button from "../../lib/buttons/Button";
 
 function UserInfo({ author }) {

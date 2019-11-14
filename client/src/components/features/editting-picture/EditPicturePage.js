@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Helmet } from "react-helmet";
-import { selectEditPicture, selectMyPictures } from "../actions/userSelectors";
-import { fetchMyPictures } from "../actions/user";
-import EditPicture from "../features/editting-picture/EditPicture";
-import Spinner from "../lib/loadings/Spinner";
+import {
+  selectEditPicture,
+  selectMyPictures
+} from "../../actions/userSelectors";
+import { fetchMyPictures } from "../../actions/user";
+import EditPicture from "./EditPicture";
+import Spinner from "../../loadings/Spinner";
 
 function EditPicturePage(props) {
   const picture = useSelector(selectEditPicture);

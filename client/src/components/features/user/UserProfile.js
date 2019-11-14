@@ -15,8 +15,9 @@ import {
 } from "../../actions/user";
 import UserInfo from "../picture/UserInfo";
 import PictureListContainer from "../picture/PictureListContainer";
-import Tabs from "../../lib/tabs/Tabs";
-import Pagination from "../../lib/pagination/Pagination";
+import Tabs from "../../tabs/Tabs";
+import Pagination from "../../pagination/Pagination";
+import { selectFavoritesId } from "../../actions/pictureSelectors";
 
 const UserProfile = ({ match }) => {
   const userInfo = useSelector(selectUserProfile);
@@ -58,27 +59,40 @@ const UserProfile = ({ match }) => {
     },
     [dispatch, userId]
   );
+  const favoritesId = useSelector(selectFavoritesId);
+
+  const isFavorite = React.useCallback(
+    picture => {
+      if (tab === "favorites") {
+        return true;
+      }
+      return favoritesId.indexOf(picture._id) > -1;
+    },
+    [favoritesId, tab]
+  );
 
   return (
     <div className="user-profile">
       <UserInfo author={userInfo} />
-      <Tabs pathname={`/users/${userId}/`} paths={pathnames} />
 
-      <div className="container">
-        <PictureListContainer
-          pictures={pictures}
-          author={userInfo}
-          from="user"
-          favorites={false}
-        />
-        <Pagination
-          fetchPage={fetchPage}
-          defaultPage={+page}
-          totalPages={usersPictures.pages}
-          totalImages={usersPictures.total}
-          pathname={location.pathname}
-          search={`?tab=${tab}&page=`}
-        />
+      <Tabs pathname={`/users/${userId}/`} paths={pathnames} />
+      <div className="vertical-border">
+        <div className="container">
+          <PictureListContainer
+            pictures={pictures}
+            author={userInfo}
+            from="user"
+            isFavorite={isFavorite}
+          />
+          <Pagination
+            fetchPage={fetchPage}
+            defaultPage={+page}
+            totalPages={usersPictures.pages}
+            totalImages={usersPictures.total}
+            pathname={location.pathname}
+            search={`?tab=${tab}&page=`}
+          />
+        </div>
       </div>
     </div>
   );

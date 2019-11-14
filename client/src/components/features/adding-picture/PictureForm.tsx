@@ -1,9 +1,9 @@
 import React from "react";
-import TextInput from "../../lib/inputs/TextInput";
-import FileInput from "../../lib/inputs/FileInput";
-import Button from "../../lib/buttons/Button";
-import ConditionalImage from "../../lib/images/ConditionalImage";
-import Progress from "../../lib/progress/Progress";
+import TextInput from "../../inputs/TextInput";
+import FileInput from "../../inputs/FileInput";
+import Button from "../../buttons/Button";
+import ConditionalImage from "../../images/ConditionalImage";
+import Progress from "../../progress/Progress";
 
 interface Props {
   handleSubmit: (e: { preventDefault: () => void }) => void;

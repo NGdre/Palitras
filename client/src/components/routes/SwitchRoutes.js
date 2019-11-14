@@ -3,54 +3,58 @@ import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 
 const Login = lazy(() =>
-  import(/*webpackChunkName: "Login"*/ "../../pages/Login")
+  import(/*webpackChunkName: "Login"*/ "../pages/Login")
 );
 
 const SignUp = lazy(() =>
-  import(/*webpackChunkName: "SignUp"*/ "../../pages/SignUp")
+  import(/*webpackChunkName: "SignUp"*/ "../pages/SignUp")
 );
 
 const ResetPassword = lazy(() =>
-  import(/*webpackChunkName: "ResetPassword"*/ "../../pages/ResetPassword")
+  import(/*webpackChunkName: "ResetPassword"*/ "../pages/ResetPassword")
 );
 
 const Picture = lazy(() =>
-  import(/*webpackChunkName: "Picture"*/ "../../pages/Picture")
+  import(/*webpackChunkName: "Picture"*/ "../pages/Picture")
 );
 
 const Home = lazy(() =>
-  import(/*webpackChunkName: "Home"*/ "../../pages/Home")
+  import(/*webpackChunkName: "Home"*/ "../features/home/Home")
 );
 
 const AddPicture = lazy(() =>
-  import(/*webpackChunkName: "AddPicture"*/ "../../pages/AddPicture")
+  import(
+    /*webpackChunkName: "AddPicture"*/ "../features/adding-picture/AddPicture"
+  )
 );
 
 const NotFound = lazy(() =>
-  import(/*webpackChunkName: "NotFound"*/ "../../pages/NotFound")
+  import(/*webpackChunkName: "NotFound"*/ "../pages/NotFound")
 );
 
 const Favorites = lazy(() =>
-  import(/*webpackChunkName: "Favorites"*/ "../../pages/Favorites")
+  import(/*webpackChunkName: "Favorites"*/ "../features/favorites/Favorites")
 );
 
 const UserProfilePage = lazy(() =>
   import(
-    /*webpackChunkName: "UserProfilePage"*/ "../../features/user/UserProfilePage"
+    /*webpackChunkName: "UserProfilePage"*/ "../features/user/UserProfilePage"
   )
 );
 
 const MyPictures = lazy(() =>
-  import(/*webpackChunkName: "MyPictures"*/ "../../pages/MyPictures")
+  import(/*webpackChunkName: "MyPictures"*/ "../pages/MyPictures")
 );
 
 const EditPicturePage = lazy(() =>
-  import(/*webpackChunkName: "EditPicturePage"*/ "../../pages/EditPicturePage")
+  import(
+    /*webpackChunkName: "EditPicturePage"*/ "../features/editting-picture/EditPicturePage"
+  )
 );
 
 const NotificationsPage = lazy(() =>
   import(
-    /*webpackChunkName: "NotificationsPage"*/ "../../features/notifications/NotificationsPage"
+    /*webpackChunkName: "NotificationsPage"*/ "../features/notifications/NotificationsPage"
   )
 );
 

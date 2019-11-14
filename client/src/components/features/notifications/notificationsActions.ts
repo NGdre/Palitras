@@ -1,6 +1,6 @@
 import { RSAA } from "redux-api-middleware";
 import { userAPI } from "../../actions/api";
-import { makeActionPrefix } from "../../lib/utils";
+import { makeActionPrefix } from "../../utils";
 
 const moduleName = "notifications";
 const authToken = localStorage.getItem("token");

@@ -7,10 +7,10 @@ import Header from "./features/nav/Header";
 import { useDispatch } from "react-redux";
 import { checkAuthorization } from "./actions/auth";
 import { useSelector } from "react-redux";
-import { fetchUserInfo } from "./actions/user";
+import { fetchUserInfo, clearCurrentSomeUser } from "./actions/user";
 import { clearCurrentPicture } from "./actions/picture";
-import useOnLeaveRoute from "./lib/hooks/useOnLeaveRoute";
-import SwitchRoutes from "./lib/routes/SwitchRoutes";
+import useOnLeaveRoute from "./hooks/useOnLeaveRoute";
+import SwitchRoutes from "./routes/SwitchRoutes";
 import SnackBar from "./features/snackbar/SnackBar";
 import Footer from "./features/nav/Footer";
 import NewSnackBar from "./features/snackbar/NewSnackBar";
@@ -29,6 +29,7 @@ function App(props) {
 
   const { pathname } = props.location;
   useOnLeaveRoute(pathname, /pictures/, clearCurrentPicture);
+  useOnLeaveRoute(pathname, /users/, clearCurrentSomeUser);
 
   return (
     <>

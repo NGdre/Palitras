@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import { selectMessage } from "../../actions/authSelectors";
 import { maxPasswordLength, minPasswordLength } from "../../../setupEnv";
 
-import useValidation from "../../lib/hooks/useValidation";
-import validateAuth from "../../lib/utils/validateAuth";
-import TextInput from "../../lib/inputs/TextInput";
-import Button from "../../lib/buttons/Button";
+import useValidation from "../../hooks/useValidation";
+import validateAuth from "../../utils/validateAuth";
+import TextInput from "../../inputs/TextInput";
+import Button from "../../buttons/Button";
 
 function AuthForm({ title, type, sendDataToServer }) {
   const [isDataValid, setDataValid] = useState(false);

@@ -1,17 +1,17 @@
 import { createActions, createAction } from "redux-actions";
-import makeRequestToAPI from "../lib/utils/makeRequestToAPI";
+import makeRequestToAPI from "../utils/makeRequestToAPI";
 import { pictureAPI } from "./api";
-import { makeActionPrefix } from "../lib/utils/";
+import { makeActionPrefix } from "../utils";
 import { RSAA } from "redux-api-middleware";
 import axios from "axios";
 
 const reducerName = "picture";
 const createDispatchAPIFlow = makeRequestToAPI(reducerName);
 
-export const [FETCH_IMAGES_TYPES, UPLOAD_PICTURE_TYPES] = makeActionPrefix(
-  reducerName,
-  ["FETCH_IMAGES"]
-);
+export const [
+  FETCH_IMAGES_TYPES,
+  UPLOAD_PICTURE_TYPES
+] = makeActionPrefix(reducerName, ["FETCH_IMAGES"]);
 
 export const fetchPictures = page => ({
   [RSAA]: {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import ConditionalImage from "../../lib/images/ConditionalImage";
-import Spinner from "../../lib/loadings/Spinner";
+import ConditionalImage from "../../images/ConditionalImage";
+import Spinner from "../../loadings/Spinner";
 import UserInfo from "./UserInfo";
 import { useSelector } from "react-redux";
 

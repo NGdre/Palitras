@@ -8,8 +8,8 @@ import {
   FETCH_IMAGES_TYPES
 } from "../actions/picture";
 
-import { getActionsOfType } from "../lib/utils/actionHelpers";
-import { combineAPIActions } from "../lib/utils/";
+import { getActionsOfType } from "../utils/actionHelpers";
+import { combineAPIActions } from "../utils";
 
 const initialState = {
   message: {

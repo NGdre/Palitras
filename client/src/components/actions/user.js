@@ -1,7 +1,7 @@
 import { createActions, createAction } from "redux-actions";
 import { RSAA } from "redux-api-middleware";
-import makeRequestToAPI from "../lib/utils/makeRequestToAPI";
-import { makeActionPrefix } from "../lib/utils/";
+import makeRequestToAPI from "../utils/makeRequestToAPI";
+import { makeActionPrefix } from "../utils";
 import { userAPI } from "./api";
 
 const reducerName = "user";
@@ -71,6 +71,10 @@ export const removePictureFromFavorites = createAction(
 export const setEditPicture = createAction(
   `${reducerName}/SET_EDIT_PICTURE`,
   pictureId => ({ pictureId })
+);
+
+export const clearCurrentSomeUser = createAction(
+  `${reducerName}/CLEAR_CURRENT_SOME_USER`
 );
 
 export const incrementUnreadAmount = createAction(

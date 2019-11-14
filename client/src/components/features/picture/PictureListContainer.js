@@ -1,11 +1,11 @@
 import React from "react";
 import PictureList from "./PictureList";
-import Spinner from "../../lib/loadings/Spinner";
-import useSpinner from "../../lib/hooks/useSpinner";
+import Spinner from "../../loadings/Spinner";
+import useSpinner from "../../hooks/useSpinner";
 
 const PictureListContainer = ({
   pictures = [],
-  favorites,
+  isFavorite = false,
   myPictures,
   author,
   from
@@ -20,17 +20,12 @@ const PictureListContainer = ({
     return <p>there is no pictures added here</p>;
   }
 
-  const isFavorite = picture => {
-    if (!favorites) {
-      return false;
-    }
-    return favorites === true || favorites.indexOf(picture._id) > -1;
-  };
+  const returnFalse = () => false;
 
   return (
     <PictureList
       pictures={pictures}
-      isFavorite={isFavorite}
+      isFavorite={isFavorite || returnFalse}
       myPictures={myPictures}
       author={author}
     />

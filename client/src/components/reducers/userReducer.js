@@ -7,8 +7,8 @@ import {
   USERS_PICTURES_TYPES
 } from "../actions/user";
 
-import { getActionsOfType } from "../lib/utils/actionHelpers";
-import { combineAPIActions } from "../lib/utils/";
+import { getActionsOfType } from "../utils/actionHelpers";
+import { combineAPIActions } from "../utils";
 
 const { actionRequests, actionFails } = getActionsOfType(
   [
@@ -24,7 +24,12 @@ const { actionRequests, actionFails } = getActionsOfType(
 const initialState = {
   message: null,
   userInfo: {
-    unreadNotificationsAmount: 0
+    _id: null,
+    favorites: [],
+    pictures: [],
+    unreadNotificationsAmount: 0,
+    isVerified: false,
+    email: null
   },
   someUser: {},
   usersPictures: {
@@ -86,6 +91,13 @@ export const userReducer = handleActions(
         ...state,
         usersPictures: payload,
         isLoading: false
+      }),
+
+      CLEAR_CURRENT_SOME_USER: state => ({
+        ...state,
+        usersFavorites: [],
+        usersPictures: {},
+        someUser: {}
       }),
 
       USERS_FAVORITES_SUCCESS: (state, { payload }) => ({

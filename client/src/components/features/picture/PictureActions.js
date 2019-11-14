@@ -1,6 +1,6 @@
 import React from "react";
-import ButtonIcon from "../../lib/buttons/ButtonIcon";
-import Button from "../../lib/buttons/Button";
+import ButtonIcon from "../../buttons/ButtonIcon";
+import Button from "../../buttons/Button";
 
 const PictureActions = ({
   favAmount,

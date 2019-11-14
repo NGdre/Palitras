@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Button from "../../lib/buttons/Button";
-import ConditionalImage from "../../lib/images/ConditionalImage";
-import useRedirect from "../../lib/hooks/useRedirect";
+import Button from "../../buttons/Button";
+import ConditionalImage from "../../images/ConditionalImage";
+import useRedirect from "../../hooks/useRedirect";
 import { useDispatch } from "react-redux";
 import { removePicture } from "../../actions/picture";
 import EditPictureForm from "./EditPictureForm";
-import Dialog from "../../lib/messages/Dialog";
+import Dialog from "../../messages/Dialog";
 
 const EditPicture = ({ picture }) => {
   const { redirectTo, renderRedirect } = useRedirect();

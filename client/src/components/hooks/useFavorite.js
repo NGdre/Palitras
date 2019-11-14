@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addFavorite, removeFavorite } from "../../actions/picture";
+import { addFavorite, removeFavorite } from "../actions/picture";
 import {
   addPictureInFavorites,
   removePictureFromFavorites
-} from "../../actions/user";
+} from "../actions/user";
 
 export default function useFavorite(initialValue, picture) {
   const [isAddedInFavorites, setFavorite] = useState(initialValue);

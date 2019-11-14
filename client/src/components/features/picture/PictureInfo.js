@@ -1,7 +1,7 @@
 import React from "react";
 import PictureActionsContainer from "./PictureActionsContainer";
 
-import { parseMongoDate } from "../../lib/utils/";
+import { parseMongoDate } from "../../utils";
 
 function PictureInfo({ picture, isFavorite }) {
   return (

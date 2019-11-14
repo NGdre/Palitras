@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ButtonIcon from "../../lib/buttons/ButtonIcon";
+import ButtonIcon from "../../buttons/ButtonIcon";
 import TimeAgo from "react-timeago";
 import { useDispatch, useSelector } from "react-redux";
 import { markAsRead, markAsUnread } from "./notificationsActions";

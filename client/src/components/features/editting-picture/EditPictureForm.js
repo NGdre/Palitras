@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Button from "../../lib/buttons/Button";
-import TextInput from "../../lib/inputs/TextInput";
-import useValidation from "../../lib/hooks/useValidation";
-import validatePicture from "../../lib/utils/validatePicture";
+import Button from "../../buttons/Button";
+import TextInput from "../../inputs/TextInput";
+import useValidation from "../../hooks/useValidation";
+import validatePicture from "../../utils/validatePicture";
 import { updatePicture } from "../../actions/picture";
 
 const EditPictureForm = ({ picture, children }) => {

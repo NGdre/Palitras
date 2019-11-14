@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setEditPicture } from "../../actions/user";
 import PropTypes from "prop-types";
-import ButtonIcon from "../../lib/buttons/ButtonIcon";
+import ButtonIcon from "../../buttons/ButtonIcon";
 import { useSpring, animated } from "react-spring";
-import useRedirect from "../../lib/hooks/useRedirect";
+import useRedirect from "../../hooks/useRedirect";
 
 const PictureListMyItem = React.memo(({ picture }) => {
   const { redirectTo, renderRedirect } = useRedirect();

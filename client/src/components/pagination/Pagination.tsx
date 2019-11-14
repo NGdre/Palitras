@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsLoading } from "../../actions/pictureSelectors";
+import { selectIsLoading } from "../actions/pictureSelectors";
 import { push } from "connected-react-router";
 import ButtonIcon from "../buttons/ButtonIcon";
 import _ from "lodash";
@@ -11,7 +11,7 @@ interface Props {
   defaultPage: number;
   totalPages: number;
   totalImages: number;
-  pathname: string;
+  pathname?: string;
   search?: string;
 }
 
@@ -20,7 +20,7 @@ const Pagination: React.FC<Props> = ({
   defaultPage,
   totalPages,
   totalImages,
-  pathname,
+  pathname = "/",
   search
 }) => {
   const isLoading = useSelector(selectIsLoading);
@@ -79,6 +79,10 @@ const Pagination: React.FC<Props> = ({
   const disabled = isLoading === true;
   const disabledPrev = disabled || currentPage === 1;
   const disabledNext = disabled || currentPage === totalPages;
+
+  if (totalPages === 1) {
+    return null;
+  }
 
   return (
     <div className="pagination">

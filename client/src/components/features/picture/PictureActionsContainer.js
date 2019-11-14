@@ -1,6 +1,6 @@
 import React from "react";
-import useFavorite from "../../lib/hooks/useFavorite";
-import useIsLogged from "../../lib/hooks/useIsLogged";
+import useFavorite from "../../hooks/useFavorite";
+import useIsLogged from "../../hooks/useIsLogged";
 import _ from "lodash";
 import PictureActions from "./PictureActions";
 
@@ -15,7 +15,7 @@ export default function PictureActionsContainer({
   );
 
   const handleFavoritesWithValidation = useIsLogged(
-    _.throttle(handleFavorites, 1000)
+    _.debounce(handleFavorites, 500)
   );
 
   const handleCollections = () => {

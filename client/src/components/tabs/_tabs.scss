@@ -13,9 +13,10 @@
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+    color: color-on(surface);
 
     &:hover {
-      color: darken(color("secondary"), 10%);
+      color: darken(color("secondary"), 10%) !important;
     }
 
     &:visited {
@@ -24,13 +25,7 @@
   }
 
   a.selected {
+    color: color("secondary") !important;
     border-bottom: 1px solid color("secondary");
   }
-}
-
-.red {
-  background: color("surface");
-  margin: 20px 0;
-  border-top: 1px solid lighten(color-on("surface"), 45%);
-  border-bottom: 1px solid lighten(color-on("surface"), 45%);
 }

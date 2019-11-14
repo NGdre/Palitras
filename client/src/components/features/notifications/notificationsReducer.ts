@@ -5,7 +5,7 @@ import {
   MARK_AS_UNREAD_TYPES
 } from "./notificationsActions";
 
-import { combineAPIActions } from "../../lib/utils";
+import { combineAPIActions } from "../../utils";
 
 interface NotificationsState {
   notifications: {
