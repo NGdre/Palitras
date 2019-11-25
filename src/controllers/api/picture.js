@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+
+const { Types } = require("mongoose");
 const createError = require("http-errors");
 const { param } = require("express-validator");
 
@@ -12,9 +14,10 @@ const { hasValidationErr, verify, findUser } = require("../../middlewares/");
 
 const {
   checkImageFileType,
-  createImageFileName,
-  minifyAndResizeImages
+  createImageFileName
 } = require("../../utils/helpers");
+
+const ImageManager = require("../../utils/ImageManager");
 
 const destinationPath =
   process.env.NODE_ENV === "production"
@@ -26,9 +29,11 @@ const destination = path.resolve(
   `../../../${destinationPath}/images/`
 );
 
+const public = "/uploads/images";
+
 const storage = multer.diskStorage({
   destination,
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, createImageFileName({ file }, { temp: true }));
   }
 });
@@ -36,58 +41,49 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: 2048 * 1024,
-  fileFilter: function(req, file, cb) {
-    checkImageFileType(file, cb);
-  }
+  fileFilter: (req, file, cb) => checkImageFileType(file, cb)
 }).single("picture");
 
 const createPicture = wrapAsync(async (req, res) => {
-  await upload(req, res, async err => {
-    if (err) {
-      throw createError(400, {
-        message: err,
-        details: "you can only upload pictures"
-      });
-    }
+  const { user } = res.locals;
+  const { file } = req;
 
-    const { user } = res.locals;
-    const { file } = req;
+  const id = Types.ObjectId();
 
-    const dateNow = Date.now();
-    const width = 450;
+  const imageWidths = [1280, 1024, 768, 512, 256];
 
-    const smallImageBaseName = createImageFileName({ file, dateNow, width });
-    const imageBaseName = createImageFileName({ file, dateNow });
+  const imageManager = new ImageManager(file, {
+    id,
+    widths: imageWidths,
+    public
+  });
 
-    const public = "/uploads/images/";
-    const data = {
-      name: req.body.name,
-      author: user,
-      imagePaths: [
-        {
-          path: `${public}${imageBaseName}`
-        },
-        {
-          path: `${public}${smallImageBaseName}`,
-          width
-        }
-      ]
-    };
+  const result = await imageManager.upload();
 
-    const smallPath = path.resolve(req.file.destination, smallImageBaseName);
-    const imagePath = path.resolve(req.file.destination, imageBaseName);
+  if (!result.isUploaded) {
+    throw createError(400, {
+      message: "image is not uploaded"
+    });
+  }
 
-    minifyAndResizeImages(req.file.path, [imagePath, smallPath], { width });
+  const data = {
+    _id: id,
+    name: req.body.name,
+    author: user,
+    imagePaths: result.imagePaths
+  };
 
-    const picture = await pictureService.addPicture(data);
+  const picture = await pictureService.addPicture(data);
 
-    if (!picture) {
-      throw createError(400, {
-        message: "can't upload"
-      });
-    }
+  if (!picture) {
+    throw createError(400, {
+      message: "can't upload"
+    });
+  }
 
-    res.status(201).json({ message: "image successfuly uploaded!" });
+  res.status(201).json({
+    message: "image successfuly uploaded!",
+    picture
   });
 });
 
@@ -145,14 +141,33 @@ const getPicture = wrapAsync(async (req, res) => {
 const removePicture = wrapAsync(async (req, res) => {
   const { pictureId: id } = req.params;
   const { user } = res.locals;
+  const picture = await pictureService.findById(id);
 
-  const result = await pictureService.removePicture(id, user);
-
-  if (!result) {
-    throw createError(400, "picture has already been removed!");
+  if (!picture) {
+    throw createError(
+      404,
+      "there's no such picture, probably it has been removed"
+    );
   }
 
-  res.status(200).json({ message: "picture were removed!" });
+  const imageManager = new ImageManager();
+
+  const { isDeleted, isErr, err } = await imageManager.remove(picture);
+
+  if (isErr) {
+    throw createError(500, err);
+  }
+
+  if (isDeleted) {
+    const deletedPicture = await pictureService.removePictureInDB(
+      picture,
+      user
+    );
+
+    res
+      .status(200)
+      .json({ message: "picture were removed!", picture: deletedPicture });
+  }
 });
 
 const updatePicture = wrapAsync(async (req, res) => {
@@ -173,7 +188,20 @@ const updatePicture = wrapAsync(async (req, res) => {
 pictureRouter
   .route("/")
   .get(getPictures)
-  .post(verify, findUser.byId, createPicture);
+  .post(
+    verify,
+    findUser.byId,
+    (req, res, next) => {
+      upload(req, res, err => {
+        if (err) {
+          next(createError(400, "can't upload none image files"));
+        } else {
+          next();
+        }
+      });
+    },
+    createPicture
+  );
 
 pictureRouter.use(
   "/:pictureId",

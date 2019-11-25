@@ -1,6 +1,6 @@
 import React from "react";
 
-const Progress = ({ value, show }) => {
+const Progress = ({ value, show = false }) => {
   if (!value || !show) {
     return null;
   }

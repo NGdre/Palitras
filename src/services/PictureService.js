@@ -1,15 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
-const publicPath =
-  process.env.NODE_ENV === "production" ? "client/build" : "client/public";
-
-const publicDestination = path.join(__dirname, `../../${publicPath}`);
-
-function joinMultiplePaths(toPath, paths) {
-  return paths.map(p => path.join(toPath, p));
-}
-
 function getFields({ fields, isInclude }) {
   if (!fields) {
     return {};
@@ -23,20 +11,6 @@ function getFields({ fields, isInclude }) {
   }, {});
 
   return res;
-}
-
-function deleteFiles(files) {
-  return new Promise((resolve, reject) => {
-    files.forEach((filepath, i) => {
-      fs.unlink(filepath, err => {
-        if (err) {
-          return reject(err);
-        } else if (files.length - 1 === i) {
-          return resolve(files);
-        }
-      });
-    });
-  });
 }
 
 class PictureService {
@@ -101,18 +75,11 @@ class PictureService {
     return await this.Picture.findByIdAndUpdate(id, data);
   }
 
-  async removePicture(id, user) {
-    const picture = await this.findById(id);
+  async removePictureInDB(picture, user) {
+    await user.removeMyPicture(picture.id);
+    await picture.remove();
 
-    const paths = picture.imagePaths.map(p => p.path);
-    const imagePaths = joinMultiplePaths(publicDestination, paths);
-
-    const deletedPaths = await deleteFiles(imagePaths);
-
-    const deleted = deletedPaths.length && (await user.removeMyPicture(id));
-    deleted && (await picture.remove());
-
-    return true;
+    return picture;
   }
 
   async addInFavorites(id, user) {

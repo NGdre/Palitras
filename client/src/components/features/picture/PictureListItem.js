@@ -1,47 +1,52 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
+
 import ImageBarInfo from "./ImageBarInfo";
-import useRedirect from "../../hooks/useRedirect";
 import PictureActionsContainer from "./PictureActionsContainer";
+import { getSrcSet } from "../../utils";
 
 const PictureListItem = React.memo(({ picture, isFavorite, ...props }) => {
-  const { redirectTo, renderRedirect } = useRedirect();
+  const dispatch = useDispatch();
 
   function redirectToFullPicture() {
-    redirectTo(`/pictures/${picture._id}`);
+    dispatch(push(`/pictures/${picture._id}`));
   }
 
   const author = picture.author || props.author;
 
+  const { imagePaths } = picture;
+
   return (
-    <>
-      {renderRedirect()}
-      <li className="image-item">
-        <img
-          src={picture.imagePaths[1].path}
-          className="img"
-          alt={picture.name}
-          onClick={redirectToFullPicture}
-        />
-        <div className="image-bar">
-          <ImageBarInfo author={author} picture={picture} />
-          <div className="image-actions">
-            <PictureActionsContainer
-              isFavorite={isFavorite}
-              picture={picture}
-              isIcons={true}
-            />
-          </div>
+    <li className="image-item">
+      <img
+        sizes="(min-width: 30em) 28em, 100vw"
+        srcSet={getSrcSet(imagePaths)}
+        src={imagePaths[0].path}
+        className="img"
+        alt={picture.name}
+        onClick={redirectToFullPicture}
+      />
+
+      <div className="image-bar">
+        <ImageBarInfo author={author} picture={picture} />
+        <div className="image-actions">
+          <PictureActionsContainer
+            isFavorite={isFavorite}
+            picture={picture}
+            isIcons={true}
+          />
         </div>
-      </li>
-    </>
+      </div>
+    </li>
   );
 });
 
 PictureListItem.propTypes = {
   picture: PropTypes.shape({
-    imagePath: PropTypes.string,
-    name: PropTypes.string,
+    imagePaths: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
     author: PropTypes.object,
     _id: PropTypes.string
   }).isRequired

@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import "../stylesheets/main.scss";
 
-import Header from "./features/nav/Header";
-
-import { useDispatch } from "react-redux";
 import { checkAuthorization } from "./actions/auth";
-import { useSelector } from "react-redux";
 import { fetchUserInfo, clearCurrentSomeUser } from "./actions/user";
 import { clearCurrentPicture } from "./actions/picture";
+
 import useOnLeaveRoute from "./hooks/useOnLeaveRoute";
 import SwitchRoutes from "./routes/SwitchRoutes";
+
+import Header from "./features/nav/Header";
 import SnackBar from "./features/snackbar/SnackBar";
 import Footer from "./features/nav/Footer";
 import NewSnackBar from "./features/snackbar/NewSnackBar";
@@ -28,6 +29,7 @@ function App(props) {
   }, [dispatch, isLogged]);
 
   const { pathname } = props.location;
+
   useOnLeaveRoute(pathname, /pictures/, clearCurrentPicture);
   useOnLeaveRoute(pathname, /users/, clearCurrentSomeUser);
 

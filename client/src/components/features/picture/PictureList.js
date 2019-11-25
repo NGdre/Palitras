@@ -2,7 +2,6 @@ import React from "react";
 import { a, useTransition } from "react-spring";
 import PictureListMyItem from "./PictureListMyItem";
 import PictureListItem from "./PictureListItem";
-import _ from "lodash";
 
 const ImageStrategy = ({ picture, isFavorite, myPictures, author }) => {
   if (myPictures) {
@@ -24,8 +23,6 @@ function PictureList({
   myPictures = false,
   author
 }) {
-  const chunkedPictures = _.chunk(pictures, 3);
-
   const transitions = useTransition(pictures, picture => picture._id, {
     config: {
       tension: 180,

@@ -35,3 +35,11 @@ export const combineAPIActions = (actions, handler) => {
     {}
   );
 };
+
+export const getSrcSet = imagePaths => {
+  return imagePaths
+    .map(imagePath => {
+      return `${imagePath.path} ${imagePath.width}w`;
+    })
+    .join(", ");
+};
