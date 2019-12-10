@@ -20,14 +20,15 @@ $default-color: #fff;
 $additional-color: #637081;
 $primary-color: #637081;
 $bg-color: #9a9da1;
+$work: rgb(230, 208, 9);
 $danger-color: #fc5c65;
-$success-color: rgb(51, 175, 51);
 
 $bg-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 
 //new vars
 
-$accent-color: #62d8ca;
+$accent-color: #06e0c7;
+$success-color: darken($accent-color, 6%);
 
 $colors: (
   "primary": #637081,
@@ -37,7 +38,7 @@ $colors: (
   "secondary-active":
     adjust-color($accent-color, $saturation: -10%, $lightness: -15%),
   "surface": #fff,
-  "bg": #dfe3e9,
+  "bg": #eef0f1,
   "err": #fc5c65
 );
 
