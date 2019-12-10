@@ -17,3 +17,49 @@
   color: color-on("primary");
   background: lighten(color("primary"), 10%);
 }
+
+.circle-progress-bar {
+  &_white .circle-progress-bar__circle {
+    stroke: white;
+
+    &:nth-child(2) {
+      stroke: white;
+    }
+  }
+}
+
+.circle-progress-bar__circle {
+  transform-origin: center;
+  stroke: lighten(color-on("surface"), 50%);
+  stroke-linecap: round;
+  fill: none;
+
+  &:nth-child(2) {
+    stroke: lighten(color("secondary"), 25%);
+  }
+
+  &_animate {
+    animation: scale-out 1s ease-out;
+  }
+}
+
+@keyframes scale-out {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(1.2);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
