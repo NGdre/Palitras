@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 function Button({
   type = "button",
   className = "btn",
-  handleClick,
+  handleClick = () => {},
   disabled = false,
   children,
-  tooltips = false
+  tooltips = false,
+  ...props
 }) {
   const submitStyles = disabled ? `${className} disabled` : className;
 
@@ -17,6 +18,7 @@ function Button({
       onClick={handleClick}
       className={submitStyles}
       disabled={disabled}
+      {...props}
     >
       {children}
       {tooltips && <p className="tooltips">{tooltips}</p>}

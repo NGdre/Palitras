@@ -87,10 +87,9 @@ input[type="file"] {
 
 .btn-icon {
   position: relative;
+  display: flex;
+  justify-content: center;
   padding: 0;
-  width: 25px;
-  margin: 0 5px;
-  cursor: pointer;
   color: color-on(surface);
 
   &:hover {
@@ -100,11 +99,6 @@ input[type="file"] {
   &:focus {
     color: darken(color-on(surface), 30%);
   }
-}
-
-button > i {
-  width: 25px;
-  margin-right: 5px;
 }
 
 button {

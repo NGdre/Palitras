@@ -1,0 +1,118 @@
+.file,
+.file_success {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  align-items: center;
+  overflow: hidden;
+  transition: color 0.3s ease, box-shadow 0.1s ease-in;
+
+  & > div {
+    margin: 0 15px;
+  }
+}
+
+.file {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__filename {
+    font-size: font-size("big");
+    color: darken(color-on("surface"), 5%);
+  }
+
+  &__info {
+    flex: 1 0 auto;
+    font-weight: 300;
+
+    color: lighten(color-on("surface"), 10%);
+  }
+
+  &__info-text {
+    margin-bottom: 5px;
+  }
+
+  &__icon {
+    color: lighten(color-on("surface"), 10%);
+    font-size: 40px;
+  }
+
+  &__btn_danger > i {
+    color: color("err");
+  }
+
+  &__status_center {
+    @include abs-center;
+  }
+
+  &__status-icon {
+    cursor: pointer;
+  }
+}
+
+.file_success {
+  box-shadow: none;
+
+  .file__status-icon {
+    color: white;
+    cursor: default;
+  }
+
+  p {
+    color: white;
+  }
+
+  background-color: adjust-color(
+    $accent-color,
+    $saturation: -55%,
+    $lightness: 15%,
+    $alpha: -0.3
+  );
+
+  background-image: linear-gradient(
+    300deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.25)
+  );
+}
+
+.file_error {
+  box-shadow: inset 0 0 0 1px lighten(color("err"), 20%);
+
+  background-color: adjust-color(
+    color("err"),
+    $saturation: -35%,
+    $lightness: 20%,
+    $alpha: -0.5
+  );
+
+  p {
+    color: darken(color("err"), 20%);
+  }
+
+  .err {
+    font-weight: 400;
+  }
+
+  background-image: linear-gradient(
+    300deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.45)
+  );
+
+  .file__status {
+    & > i {
+      cursor: default;
+      color: lighten(color("err"), 5%);
+      font-size: 40px;
+    }
+  }
+}
+
+.file-list {
+  flex-basis: 40%;
+  align-self: flex-start;
+}
