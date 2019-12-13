@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import qs from "qs";
 import { fetchPictures } from "../../actions/picture";
 import {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { fetchFavorites } from "../../actions/picture";
 import { selectFavorites } from "../../actions/pictureSelectors";
 import PictureListContainer from "../picture/PictureListContainer";

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { HelmetProvider } from "react-helmet-async";
 
 import "../stylesheets/main.scss";
 
@@ -34,7 +35,7 @@ function App(props) {
   useOnLeaveRoute(pathname, /users/, clearCurrentSomeUser);
 
   return (
-    <>
+    <HelmetProvider>
       <Header />
       <main className="height-100vh">
         <SwitchRoutes />
@@ -42,7 +43,7 @@ function App(props) {
       <SnackBar />
       <NewSnackBar />
       <Footer />
-    </>
+    </HelmetProvider>
   );
 }
 

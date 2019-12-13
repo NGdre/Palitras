@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import {
   selectEditPicture,
   selectMyPictures
