@@ -7,7 +7,6 @@ function TextInput({
   autofocus = false,
   onChange,
   onBlur,
-  showErr = false,
   outlined = false,
   name,
   clear = false,
@@ -15,9 +14,8 @@ function TextInput({
   placeholder,
   errMessage,
   showValidIcon = false,
-  leadingIcon = undefined,
-  trailingIcon = undefined,
-  characterCount = undefined
+  characterCount = undefined,
+  ...props
 }) {
   const [isNotEmpty, setNotEmpty] = useState(false);
   const inputRef = useRef(null);
@@ -53,12 +51,6 @@ function TextInput({
         autoFocus={autofocus}
       />
       <label className={labelClassName}>{title || name}</label>
-      {leadingIcon && (
-        <i className="material-icons leading-icon">{leadingIcon}</i>
-      )}
-      {trailingIcon && (
-        <i className="material-icons trailing-icon">{trailingIcon}</i>
-      )}
       {characterCount && (
         <p className="character-count">
           {value.length}/{characterCount}
@@ -67,7 +59,7 @@ function TextInput({
       {showValidIcon && !errMessage && isNotEmpty && (
         <i className="material-icons valid">done</i>
       )}
-      {showErr && <p className="err">{errMessage}</p>}
+      {props.children}
     </div>
   );
 }

@@ -9,9 +9,11 @@ import useValidation from "../../hooks/useValidation";
 import validateAuth from "../../utils/validateAuth";
 import TextInput from "../../inputs/TextInput";
 import Button from "../../buttons/Button";
+import Form from "../../forms/Form";
 
 function AuthForm({ title, type, sendDataToServer }) {
   const [isDataValid, setDataValid] = useState(false);
+  const [isPasswordVisible, setPasswordVisibile] = useState(false);
   const message = useSelector(selectMessage);
 
   const initialState = {
@@ -19,16 +21,14 @@ function AuthForm({ title, type, sendDataToServer }) {
     password: ""
   };
 
-  const {
-    values,
-    errors,
-    shouldShowErr,
-    handleChange,
-    handleBlur
-  } = useValidation(initialState, validateAuth, {
-    maxLength: { password: maxPasswordLength },
-    minLength: { password: minPasswordLength }
-  });
+  const { values, errors, handleChange, handleBlur } = useValidation(
+    initialState,
+    validateAuth,
+    {
+      maxLength: { password: maxPasswordLength },
+      minLength: { password: minPasswordLength }
+    }
+  );
 
   useEffect(() => {
     const noErrors = Object.keys(errors).length === 0;
@@ -42,45 +42,64 @@ function AuthForm({ title, type, sendDataToServer }) {
     sendDataToServer(values);
   }
 
+  const handleVisibilityPassword = () => {
+    setPasswordVisibile(!isPasswordVisible);
+  };
+
+  const toggleVisibilityIconSrc = isPasswordVisible
+    ? "/images/hide-visibility.svg"
+    : "/images/show-visibility.svg";
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <TextInput
           type="email"
           name="email"
-          autofocus={true}
+          autofocus
           onChange={handleChange}
           onBlur={handleBlur}
-          outlined={true}
+          outlined
+          required
           errMessage={errors.email}
-          showErr={shouldShowErr.email}
-          required={true}
-          showValidIcon={true}
+          showValidIcon
           value={values.email}
-          leadingIcon="mail_outline"
-        />
+        >
+          <i className="material-icons leading-icon">mail_outline</i>
+          <p className="err">{errors.email}</p>
+        </TextInput>
         {type !== "resetpassword" && (
           <TextInput
-            type="password"
+            type={isPasswordVisible ? "text" : "password"}
             name="password"
             onChange={handleChange}
             onBlur={handleBlur}
-            outlined={true}
+            outlined
+            required
             errMessage={errors.password || message}
-            showErr={shouldShowErr.password}
-            required={true}
             value={values.password}
-            leadingIcon="lock"
-            showValidIcon={true}
+            showValidIcon
             characterCount={maxPasswordLength}
-          />
+          >
+            <i className="material-icons leading-icon">lock</i>
+            <Button
+              className="btn-icon trailing-icon"
+              onClick={handleVisibilityPassword}
+            >
+              <img src={toggleVisibilityIconSrc} alt="toggle visibility" />
+            </Button>
+            <p className="err">{errors.password || message}</p>
+          </TextInput>
         )}
         <div className="form-bottom border-top">
-          <Button type="submit" disabled={!isDataValid}>
+          <Button
+            type="submit"
+            disabled={!isDataValid}
+            className="btn auth-form__submit-btn"
+          >
             {title}
           </Button>
         </div>
-      </form>
+      </Form>
     </>
   );
 }

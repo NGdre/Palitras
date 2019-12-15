@@ -1,9 +1,9 @@
-.box {
-  @include size(100%, 200px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+$form-control-heigth: 40px;
+$icon-size: 22px;
+$icons-horizontal-margin: 8px;
+$label-jump-text-distance: -5px;
+$err-margin-top: 5px;
+$input-group-margins: 20px 0;
 
 input:-webkit-autofill {
   -webkit-text-fill-color: $default-color !important;
@@ -15,7 +15,7 @@ input {
 }
 
 .input-group {
-  margin: 30px 0;
+  margin: $input-group-margins;
   width: 80%;
   position: relative;
 }
@@ -24,7 +24,8 @@ input {
 .form-control-outlined {
   display: block;
   position: relative;
-  padding: rem(10);
+
+  height: $form-control-heigth;
   font-size: font-size("big");
 
   color: color-on("surface");
@@ -51,10 +52,11 @@ input {
 
 .form-control-outlined {
   border-bottom: 1px solid lighten(color-on("surface"), 30%);
+  transition: all 0.2s ease-in;
 
   &:focus ~ label,
   &:valid ~ label {
-    top: -10px;
+    top: $label-jump-text-distance;
     font-size: font-size("small");
     color: color("secondary");
   }
@@ -91,32 +93,39 @@ textarea {
 
 .form-label-outlined {
   position: absolute;
-  top: rem(10);
+  top: 50%;
+  transform: translateY(-50%);
   left: 35px;
   padding: 0 4px;
   transition: all 0.1s ease-out;
 }
 
-.leading-icon {
-  pointer-events: none;
+.leading-icon,
+.trailing-icon,
+.valid,
+.character-count {
   position: absolute;
-  left: 8px;
-  top: 9px;
+}
+
+.leading-icon,
+.trailing-icon,
+.valid {
+  font-size: $icon-size;
+  width: $icon-size;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.leading-icon {
+  left: $icons-horizontal-margin;
 }
 
 .trailing-icon {
-  pointer-events: none;
-  position: absolute;
-  right: 8px;
-  top: 9px;
+  right: $icons-horizontal-margin;
 }
 
 .valid {
-  position: absolute;
-  display: inline;
-  top: 8px;
-  right: -30px;
-  margin-left: 8px;
+  right: -25px;
   color: $success-color;
 }
 
@@ -125,10 +134,10 @@ textarea {
 }
 
 .character-count {
-  position: absolute;
   right: 0;
 }
 
 .err {
+  margin-top: $err-margin-top;
   max-width: 80%;
 }

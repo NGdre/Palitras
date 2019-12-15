@@ -1,24 +1,20 @@
 .auth-form {
   height: 100%;
   margin: 40px 0;
-  background: lighten(color("surface"), 10%);
+  background: color("surface");
   border-radius: border-radius("medium");
   padding: 30px 60px;
   width: 400px;
+  position: relative;
 
   .form-heading::first-letter {
     text-transform: uppercase;
-  }
-
-  .form-heading {
-    margin-bottom: 30px;
   }
 
   .reset-password-info {
     font-size: font-size("big");
   }
 
-  .form-heading,
   .forgot-password {
     text-align: center;
   }
@@ -29,15 +25,19 @@
     color: color-on("surface");
   }
 
+  .form-heading {
+    color: lighten(color-on("surface"), 10%);
+    margin-bottom: 10px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  button,
+  &__submit-btn,
   .input-group {
-    position: relative;
     width: 100%;
   }
 
@@ -45,7 +45,7 @@
     margin: 25px 0;
   }
 
-  button {
+  &__submit-btn {
     padding: 8px 0;
   }
 
