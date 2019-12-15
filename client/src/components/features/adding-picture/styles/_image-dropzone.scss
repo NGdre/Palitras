@@ -1,0 +1,44 @@
+.image-dropzone {
+  flex-basis: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  box-shadow: inset 0 0 0 5px lighten(color("primary"), 40%);
+  outline: none;
+  transition: all 0.15s ease-in;
+
+  @include respond(tablet) {
+    order: -1;
+  }
+
+  &__icon {
+    font-size: 130px;
+    color: lighten(color("primary"), 30%);
+  }
+}
+
+.image-dropzone_active {
+  box-shadow: inset 0 0 0 5px darken(color("secondary"), 5%);
+
+  .image-dropzone__icon {
+    font-size: 130px;
+    color: lighten(color("primary"), 30%);
+    animation: scale-in 0.7s infinite alternate;
+  }
+
+  .image-dropzone__actions {
+    opacity: 0.4;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0.75);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
